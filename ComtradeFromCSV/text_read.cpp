@@ -42,13 +42,15 @@ Text_read::Text_read(std::string nameFile, std::string strPath)
 		resnum_beg += 11;//11 символов до буквы T
 
     unsigned int j =0;
-	unsigned int str_num = 1;
+    unsigned int str_num = 0;
+    unsigned int col_num = 0;
 	//unsigned int res_data_len= res.length() - resnum_beg;
 	//char *res_data = new char [res_data_len];
 	Signal* ArrSignal = new Signal [sign_quantity];//ВРЕМЕННОЕ РЕШЕНИЕ, КОЛЛИЧЕСТВО СИГНАЛОВ ДОЛЖНО ОПРЕДЕЛЯТЬСЯ ИЗ ТЕКСТА
 	const int num_tmp_ch = 20;
 	char* tmp_ch = new char [num_tmp_ch];//для чтения цифр
 	int signal_num = 0;
+    double data_tmp = 0;
 
 	for (int k = 0; k < sign_quantity; k++)
 	{
@@ -62,6 +64,16 @@ Text_read::Text_read(std::string nameFile, std::string strPath)
     for (unsigned int i = resnum_beg; i < res.length(); i++)
 	{
 		if ((res[i] == 'i'&& res[i+1] == '(')|| (res[i] == 'v'&& res[i+1] == '(')){
+            if (res[i] == 'i')
+            {
+                ArrSignal[signal_num].SIGUU = 'A';
+                ArrSignal[signal_num].SIGA = Kct;
+            }
+            if (res[i] == 'v')
+            {
+                ArrSignal[signal_num].SIGUU = 'V';
+                ArrSignal[signal_num].SIGA = Kvt;
+            }
 			while (res[i] != ' ') {
 				tmp_ch [j] = res[i];
 				if (tmp_ch [j] == '(')
@@ -81,8 +93,15 @@ Text_read::Text_read(std::string nameFile, std::string strPath)
 				tmp_ch [k] = {0};
 			}
 		}
+        if (str_num > 0)
+        {
+            data_tmp = get_value(res, i);
+
+            int check = 0;
+        }
 		if (res[i] == '\n')
 			str_num++;
+
 	}
 
 	int check = 0;
