@@ -1,24 +1,22 @@
-#include "text_read.h"
+#include "text_read.hpp"
 
 double get_value(std::string str, int ind_inf_beg)
 {
     int j = 0;
-    char tmp2[10] {0};//для чтения цифр
+	char tmp[10] {0};//для чтения цифр
     std::string::iterator  it = std::find_if( str.begin() + ind_inf_beg, str.end(), isdigit );
     int p = it - str.begin();//index = someIterator - vec.begin() ИЛИ index = std::distance(vec.begin(), someIterator);
-    while (str[p] != '\n' && str[p] != ' ') {tmp2[j] = str[p]; j++; p++;}
-    return std::stod(tmp2);
+	while (str[p] != '\n' && str[p] != ' ') {tmp[j] = str[p]; j++; p++;}
+	return std::stod(tmp);
 }
+
 Text_read::Text_read(std::string nameFile, std::string strPath)
 {
-    std::string tmp1, res, res_data;
-
-
-
+	std::string tmp_str, res;
 	std::ifstream file_r(strPath+nameFile+".txt");
-    while(getline(file_r, tmp1))
+	while(getline(file_r, tmp_str))
 	{
-        res += tmp1;
+		res += tmp_str;
 		res += '\n';
 	}
 
@@ -44,36 +42,48 @@ Text_read::Text_read(std::string nameFile, std::string strPath)
 		resnum_beg += 11;//11 символов до буквы T
 
     unsigned int j =0;
-    unsigned int str_num = 1;
+	unsigned int str_num = 1;
+	//unsigned int res_data_len= res.length() - resnum_beg;
+	//char *res_data = new char [res_data_len];
+	Signal* ArrSignal = new Signal [sign_quantity];//ВРЕМЕННОЕ РЕШЕНИЕ, КОЛЛИЧЕСТВО СИГНАЛОВ ДОЛЖНО ОПРЕДЕЛЯТЬСЯ ИЗ ТЕКСТА
+	const int num_tmp_ch = 20;
+	char* tmp_ch = new char [num_tmp_ch];//для чтения цифр
+	int signal_num = 0;
+
+	for (int k = 0; k < sign_quantity; k++)
+	{
+		ArrSignal[k].SIGCC = Text_read_SIGCC;
+		ArrSignal[k].SIGB = Text_read_SIGB;
+		ArrSignal[k].SIGSKEW = Text_read_SIGSKEW;
+		ArrSignal[k].SIGTYPE = Text_read_SIGTYPE;
+		ArrSignal[k].SIGM = Text_read_SIGM;
+	}
+
     for (unsigned int i = resnum_beg; i < res.length(); i++)
 	{
-        if (res[i] == '\n') str_num++;
-        char check2 = res[i];
-		res_data[j++] = res[i];
+		if ((res[i] == 'i'&& res[i+1] == '(')|| (res[i] == 'v'&& res[i+1] == '(')){
+			while (res[i] != ' ') {
+				tmp_ch [j] = res[i];
+				if (tmp_ch [j] == '(')
+					tmp_ch [j] = '_';
+				if (tmp_ch [j] == ')')
+				{
+					ArrSignal[signal_num].SIGPH = tmp_ch [j - 1];
+					tmp_ch [j] = '\0';
+				}
+				i++; j++;
+			}
+			ArrSignal[signal_num].SIGPH = res[i - 2];
+			ArrSignal[signal_num].SIGID = std::string(tmp_ch);
+			j = 0;
+			for (int k = 0; k < 20; k++)
+			{
+				tmp_ch [k] = {0};
+			}
+		}
+		if (res[i] == '\n')
+			str_num++;
 	}
 
 	int check = 0;
-	/*for (unsigned int i = 0; i < res.length(); i++)
-	{
-
-		if (res [i] != ' ')
-		{
-			numberChar[n1] = res [i];
-			n1++;
-		}
-		if (res [i] == '\n' &&  numCount == 1)
-		{
-			N = std::stof(numberChar);
-			numCount++;
-			n1 = n1 + 3;//два пробела и перенос
-			break;
-		}
-
-		if (res [i] == ' ' &&  numCount == 0)
-		{
-			M = std::stof(numberChar);
-			numCount++;
-			n1 = 0;
-		}
-	}*/
 }

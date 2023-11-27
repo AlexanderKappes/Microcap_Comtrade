@@ -8,6 +8,6 @@ int main(int argc, char *argv[])
 	MainWindow w;
 	w.show();
 
-    Text_read TR("GenTrans_v2_TGV300", "D:\\work\\Microcap_osc\\");
+	Text_read TR("GenTrans_v2_TGV300", "D:\\work\\Microcap_Comtrade\\");
 	return a.exec();
 }

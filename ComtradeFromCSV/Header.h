@@ -6,8 +6,9 @@
 #include <fstream>
 #include <cmath>
 
-#include "text_read.h"
-#include "signal.h"
+#include "text_read.hpp"
+#include "signal.hpp"
 #include "comtrade.hpp"
-#include "text_write.h"
+#include "text_write.hpp"
+#include "text_read.hpp"
 #endif // HEADER_H

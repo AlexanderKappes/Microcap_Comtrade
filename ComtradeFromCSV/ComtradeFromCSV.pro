@@ -21,8 +21,8 @@ HEADERS += \
     comtrade.hpp \
     mainwindow.h \
     signal.hpp \
-    text_read.h \
-    text_write.h
+    text_read.hpp \
+    text_write.hpp
 
 FORMS += \
     mainwindow.ui
