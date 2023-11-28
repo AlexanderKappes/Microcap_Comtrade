@@ -1,4 +1,6 @@
 #include "Text_read.hpp"
+#include <fstream>
+#include <cmath>
 
 inline float get_value(std::string& str, unsigned long ind_inf_beg)
 {
@@ -30,13 +32,13 @@ inline void name_setup(QVector<SignalComtr>& ASignal, unsigned long& i, std::str
 	unsigned int j =0;
 	if (stream[i] == 'i')
 	{
-		ASignal[sig_num].SIGUU = 'A';
-		ASignal[sig_num].SIGA = K_CT;
+        ASignal[sig_num].sig_uu = 'A';
+        ASignal[sig_num].sig_a = K_CT;
 	}
 	if (stream[i] == 'v')
 	{
-		ASignal[sig_num].SIGUU = 'V';
-		ASignal[sig_num].SIGA = K_VT;
+        ASignal[sig_num].sig_uu = 'V';
+        ASignal[sig_num].sig_a = K_VT;
 	}
 	while (stream[i] != ' ') {
 		tmp_ch [j] = stream[i];
@@ -44,14 +46,14 @@ inline void name_setup(QVector<SignalComtr>& ASignal, unsigned long& i, std::str
 			tmp_ch [j] = '_';
 		if (tmp_ch [j] == ')')
 		{
-			ASignal[sig_num].SIGPH = tmp_ch [j - 1];
+            ASignal[sig_num].sig_ph = tmp_ch [j - 1];
 			tmp_ch [j] = '\0';
 		}
 		i++; j++;
 	}
-	ASignal[sig_num].SIGPH = stream[i - 2];
-	ASignal[sig_num].SIGID = std::string(tmp_ch);
-	ASignal[sig_num].SIGNUM = sig_num;
+    ASignal[sig_num].sig_ph = stream[i - 2];
+    ASignal[sig_num].sig_id = std::string(tmp_ch);
+    ASignal[sig_num].sig_num = sig_num;
 	sig_num++;
 }
 
@@ -75,11 +77,11 @@ inline void data_setup(QVector<SignalComtr>& ASignal, unsigned long& i, std::str
 		if (col_n == 0)
 		{
 			for (unsigned short k = 0; k < s_quantity; k++)
-			{ ASignal[k].TIME[str_n-1] = data_tmp*pow(10, ten_degree);}//Время
+            { ASignal[k].sig_time[str_n-1] = data_tmp*pow(10, ten_degree);}//Время
 		}
 		else
 		{
-			ASignal[col_n - 1].SIGDATA[str_n-1] = data_tmp*pow(10, ten_degree);//Значение
+            ASignal[col_n - 1].sig_data[str_n-1] = data_tmp*pow(10, ten_degree);//Значение
 		}
 		col_n++;
 	}
@@ -115,13 +117,13 @@ Text_read::Text_read(std::string nameFile, std::string strPath)
 
 	for (unsigned short k = 0; k < sign_quantity; k++)
 	{
-		ArrSignal[k].SIGCC = Text_read_SIGCC;
-		ArrSignal[k].SIGB = Text_read_SIGB;
-		ArrSignal[k].SIGSKEW = Text_read_SIGSKEW;
-		ArrSignal[k].SIGTYPE = Text_read_SIGTYPE;
-		ArrSignal[k].SIGM = Text_read_SIGM;
-		ArrSignal[k].TIME.resize(number_of_lines);
-		ArrSignal[k].SIGDATA.resize(number_of_lines);
+        ArrSignal[k].sig_cc = Text_read_SIGCC;
+        ArrSignal[k].sig_b = Text_read_SIGB;
+        ArrSignal[k].sig_skew = Text_read_SIGSKEW;
+        ArrSignal[k].sig_type = Text_read_SIGTYPE;
+        ArrSignal[k].sig_m = Text_read_SIGM;
+        ArrSignal[k].sig_time.resize(number_of_lines);
+        ArrSignal[k].sig_data.resize(number_of_lines);
 	}
 
 	for (unsigned long i = resnum_beg; i < res.length(); i++)
@@ -150,20 +152,18 @@ Text_read::Text_read(std::string nameFile, std::string strPath)
 
 	for (unsigned short k = 0; k < sign_quantity; k++)
 	{
-		float max = ArrSignal[k].SIGDATA[0];
-		float min = ArrSignal[k].SIGDATA[0];
+        float max = ArrSignal[k].sig_data[0];
+        float min = ArrSignal[k].sig_data[0];
 		for(unsigned long i = 0; i < number_of_lines; i++)
 		{
-			if (ArrSignal[k].SIGDATA[i] > max)
+            if (ArrSignal[k].sig_data[i] > max)
 			{
-				ArrSignal[k].SIGMAX = ArrSignal[k].SIGDATA[i];
+                ArrSignal[k].sig_max = ArrSignal[k].sig_data[i];
 			}
-			if (ArrSignal[k].SIGDATA[i] < min)
+            if (ArrSignal[k].sig_data[i] < min)
 			{
-				ArrSignal[k].SIGMIN = ArrSignal[k].SIGDATA[i];
+                ArrSignal[k].sig_min = ArrSignal[k].sig_data[i];
 			}
 		}
 	}
-
-	int check = 2;
 }

@@ -17,7 +17,6 @@ SOURCES += \
     Text_write.cpp
 
 HEADERS += \
-    Header.hpp \
     SignalComtr.hpp \
     mainwindow.h \
     Text_read.hpp \

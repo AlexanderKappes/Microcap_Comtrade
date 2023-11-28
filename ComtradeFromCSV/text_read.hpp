@@ -32,7 +32,6 @@ public:
 	double d_dT_beg = 0.0;
 
 	QVector<SignalComtr> ArrSignal;
-	SignalComtr h;
 };
 
 inline float get_value(std::string str, int ind_inf_beg);

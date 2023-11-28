@@ -1,7 +1,8 @@
 #ifndef COMTRADE_HPP
 #define COMTRADE_HPP
-#include "Header.hpp"
-
+#include <string>
+#include <QObject>
+#include "SignalComtr.hpp"
 //1.Формат записываемого файла в ПК Simulink для записи в формат COMTRADE:
 //1.1.Запись данных в модели ПК Simulink должна делаться с использованием
 //    блоков "BusCreator" и "To Workspace"
@@ -25,13 +26,17 @@
 class Comtrade
 {
 private:
-	float Fnetwork;   //базовая частота сети
-	std::string FileName;   //имя файла
+    float f_network;   //базовая частота сети
+    std::string fileName;   //имя файла
+    QVector<float> dat;
+    QVector<float> time;
+    float f_sampl;
+    float n_sampl;
+
 public:
-	Comtrade();
-	void CfgFilePrint(std::string FileName,float Fnetwork,float Fsampl,int Nsampl,float SIGNALS);
-	void DatFilePrint(float* SIGNALS,float Time,std::string FileName);
-	void COMTRADEFORM(std::string FileName , std::string VoltageUnits , std::string CurrentUnits , float SIGA , float SIGB , float* DAT);
+    Comtrade(std::string in_FileName, float in_Fnetwork, QVector<SignalComtr>& in_dat, unsigned long number_of_lines);
+    void CfgFilePrint();
+    void DatFilePrint();
 };
 
 #endif // COMTRADE_HPP

@@ -1,20 +1,32 @@
 #include "Comtrade.hpp"
+
+Comtrade::Comtrade(std::string in_FileName, float in_Fnetwork, QVector<SignalComtr>& in_dat, unsigned long number_of_lines)
+{
+    f_network = in_Fnetwork;
+    fileName = in_FileName;
+    //f_sampl = num2str(1000000/(SIGNALS(1).TIME(2,1)-SIGNALS(1).TIME(1,1)));
+    //n_sampl = num2str(length(SIGNALS(1).TIME));
+    int i = 0;
+    dat.resize(number_of_lines);
+    time.resize(number_of_lines);
+    for (auto it = in_dat[0].sig_data.begin(); it != in_dat[0].sig_data.end(); ++it)
+    {
+        dat[i] = *it;
+        i++;
+    }
+    i=0;
+    for (auto it = in_dat[0].sig_time.begin(); it != in_dat[0].sig_time.end(); ++it)
+    {
+        time[i] = *it;
+        i++;
+    }
+
+    int check = 0;
+    //CfgFilePrint();
+    //DatFilePrint();
+}
+
 /*
-Comtrade::Comtrade()
-{
-	Fnetwork = num2str(Fnetwork);
-	FileName = FileName;
-	Fsampl = num2str(1000000/(SIGNALS(1).TIME(2,1)-SIGNALS(1).TIME(1,1)));
-	Nsampl = num2str(length(SIGNALS(1).TIME));
-	Time   = SIGNALS(1).TIME;
-	CfgFilePrint(FileName,obj.Fnetwork,Fsampl,Nsampl,SIGNALS)
-	DatFilePrint(SIGNALS,Time,FileName)
-}
-
-void Comtrade::COMTRADEFORM(std::string FileName , std::string VoltageUnits , std::string CurrentUnits , float SIGA , float SIGB , float* DAT)
-{
-
-}
 //Функция формирования .cfg-файла
 void Comtrade::CfgFilePrint(std::string FileName,float Fnetwork,float Fsampl,int Nsampl,float* SIGNALS)
 {
@@ -228,5 +240,4 @@ void Comtrade::COMTRADEFORM(std::string FileName , std::string VoltageUnits , st
 	SIG(:,1)=[];//Удяляем первый столбец, т.к. это время
 	COMTRADE(50,FileName,SIG);
 }
-
 */

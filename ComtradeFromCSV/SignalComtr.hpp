@@ -1,25 +1,24 @@
 #ifndef SIGNALCOMTR_H
 #define SIGNALCOMTR_H
-#include <fstream>
 #include <QObject>
 
 class SignalComtr
 {
 public:
-	std::string SIGID;
-	char SIGPH;
-	std::string SIGCC;
-	std::string SIGUU;
-	float SIGA;
-	float SIGB;
-	float SIGSKEW;
-	QVector<float> SIGDATA;
-	QVector<float> TIME;
-	float SIGMIN;
-	float SIGMAX;
-	char SIGTYPE;
-	float SIGM;
-	int SIGNUM;
+    std::string sig_id;
+    char sig_ph;
+    std::string sig_cc;
+    std::string sig_uu;
+    float sig_a;
+    float sig_b;
+    float sig_skew;
+    QVector<float> sig_data;
+    QVector<float> sig_time;
+    float sig_min;
+    float sig_max;
+    char sig_type;
+    float sig_m;
+    unsigned short sig_num;
 	SignalComtr();
 	~SignalComtr();
 };
