@@ -9,20 +9,20 @@ CONFIG += c++11
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
-    comtrade.cpp \
+    SignalComtr.cpp \
     main.cpp \
     mainwindow.cpp \
-    signal.cpp \
-    text_read.cpp \
-    text_write.cpp
+    Text_read.cpp \
+    Comtrade.cpp \
+    Text_write.cpp
 
 HEADERS += \
-    Header.h \
-    comtrade.hpp \
+    Header.hpp \
+    SignalComtr.hpp \
     mainwindow.h \
-    signal.hpp \
-    text_read.hpp \
-    text_write.hpp
+    Text_read.hpp \
+    Comtrade.hpp \
+    Text_write.hpp
 
 FORMS += \
     mainwindow.ui

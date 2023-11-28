@@ -9,5 +9,6 @@ int main(int argc, char *argv[])
 	w.show();
 
 	Text_read TR("GenTrans_v2_TGV300", "D:\\work\\Microcap_Comtrade\\");
+
 	return a.exec();
 }

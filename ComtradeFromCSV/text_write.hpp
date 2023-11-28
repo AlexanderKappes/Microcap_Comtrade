@@ -1,6 +1,6 @@
 #ifndef TEXT_WRITE_H
 #define TEXT_WRITE_H
-#include "Header.h"
+#include "Header.hpp"
 
 class Text_write
 {

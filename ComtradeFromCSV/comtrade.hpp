@@ -1,6 +1,6 @@
 #ifndef COMTRADE_HPP
 #define COMTRADE_HPP
-#include "Header.h"
+#include "Header.hpp"
 
 //1.Формат записываемого файла в ПК Simulink для записи в формат COMTRADE:
 //1.1.Запись данных в модели ПК Simulink должна делаться с использованием

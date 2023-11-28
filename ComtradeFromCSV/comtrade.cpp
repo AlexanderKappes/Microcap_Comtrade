@@ -1,4 +1,4 @@
-#include "comtrade.hpp"
+#include "Comtrade.hpp"
 /*
 Comtrade::Comtrade()
 {
