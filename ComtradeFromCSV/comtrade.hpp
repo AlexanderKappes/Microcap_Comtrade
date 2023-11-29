@@ -22,21 +22,20 @@
 
 //2.3.Названия токов начинаются с I, далее следует наименование фазы с
 //  маленькой буквы, далее - любые символы: "Ia" - ток фазы А.
-
 class Comtrade
 {
 private:
-    float f_network;   //базовая частота сети
-    std::string fileName;   //имя файла
-    QVector<float> dat;
+	unsigned short f_network;   //базовая частота сети
     QVector<float> time;
-    float f_sampl;
-    float n_sampl;
-
+	unsigned long f_sampl;
+	unsigned long n_sampl;
+	unsigned short sign_quantity;
+	unsigned short nrates;
 public:
-    Comtrade(std::string in_FileName, float in_Fnetwork, QVector<SignalComtr>& in_dat, unsigned long number_of_lines);
-    void CfgFilePrint();
-    void DatFilePrint();
+	Comtrade(std::string& in_strPath, std::string& in_FileName, unsigned short in_Fnetwork, QVector<SignalComtr>& in_signal,
+			 unsigned long in_n_sampl, unsigned long in_f_sampl, unsigned short in_sign_quantity, unsigned short in_nrates);
+	void CfgFilePrint(QVector<SignalComtr>& in_signal, char c_Path_comtrade[], char basename_comtrade[]);
+	void DatFilePrint(QVector<SignalComtr>& in_signal, char c_Path_comtrade[], char basename_comtrade[]);
 };
 
 #endif // COMTRADE_HPP

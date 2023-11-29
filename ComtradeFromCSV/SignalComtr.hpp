@@ -5,20 +5,34 @@
 class SignalComtr
 {
 public:
-    std::string sig_id;
-    char sig_ph;
-    std::string sig_cc;
-    std::string sig_uu;
-    float sig_a;
-    float sig_b;
-    float sig_skew;
-    QVector<float> sig_data;
-    QVector<float> sig_time;
-    float sig_min;
-    float sig_max;
-    char sig_type;
-    float sig_m;
-    unsigned short sig_num;
+	///имя сигнала
+	std::string sig_id;//Имена сигналов перечислены в первой строке
+	///фаза сигнала
+	char sig_ph;// Последняя буква в названии сигнала
+	///привязка сигнала к объекту
+	std::string sig_cc;// Здесь везде устанавливается ' '
+	///единицы измерения сигнала
+	std::string sig_uu;// Вторая строка
+	///коэффициент калибровки сигнала
+	float sig_a;// Здесь везде устанавливается Ктт или Ктн
+	///коэффициент смещения сигнала
+	float sig_b;// Здесь везде устанавливается 0
+	///коэффициент компенсации фазовой задержки АЦП
+	int sig_skew;//Здесь везде устанавливается 0
+	///выборка значений сигнала
+	QVector<float> sig_data;// Закреплен за столбцом сигнала
+	///моменты времени снятия значений выборки сигнала
+	QVector<float> sig_time;//Первый столбец Т
+	///минимальное значение сигнала
+	float sig_min;//Здесь min(SIGDATA)
+	///максимальное значение сигнала
+	float sig_max;//Здесь max (SIGDATA)
+	///тип сигнала
+	char sig_type;//Если это ток и напряжение, то аналог - А, если дискрет - D
+	///нормальное состояние дискретного сигнала (0 или 1)
+	float sig_m;//Здесь везде устанавливается 0
+	///порядковый номер сигнала
+	unsigned short sig_num;
 	SignalComtr();
 	~SignalComtr();
 };

@@ -1,243 +1,121 @@
 #include "Comtrade.hpp"
 
-Comtrade::Comtrade(std::string in_FileName, float in_Fnetwork, QVector<SignalComtr>& in_dat, unsigned long number_of_lines)
+Comtrade::Comtrade(std::string& in_strPath, std::string& in_FileName, unsigned short in_Fnetwork, QVector<SignalComtr>& in_signal,
+				   unsigned long in_n_sampl, unsigned long in_f_sampl, unsigned short in_sign_quantity, unsigned short in_nrates)
 {
     f_network = in_Fnetwork;
-    fileName = in_FileName;
-    //f_sampl = num2str(1000000/(SIGNALS(1).TIME(2,1)-SIGNALS(1).TIME(1,1)));
-    //n_sampl = num2str(length(SIGNALS(1).TIME));
+	char c_Path_comtrade [80] = {0};
+	char basename_comtrade [80] = {0};
+	for (std::string::size_type i = 0; i < in_FileName.length (); i ++) // строковый тип в тип char []
+		{
+			basename_comtrade[i]=in_FileName[i];
+		}
+	for (std::string::size_type i = 0; i < in_strPath.length (); i ++) // строковый тип в тип char []
+		{
+			c_Path_comtrade[i]=in_strPath[i];
+		}
     int i = 0;
-    dat.resize(number_of_lines);
-    time.resize(number_of_lines);
-    for (auto it = in_dat[0].sig_data.begin(); it != in_dat[0].sig_data.end(); ++it)
-    {
-        dat[i] = *it;
-        i++;
-    }
-    i=0;
-    for (auto it = in_dat[0].sig_time.begin(); it != in_dat[0].sig_time.end(); ++it)
+	f_sampl = in_f_sampl;
+	n_sampl = in_n_sampl;
+	sign_quantity = in_sign_quantity;
+	nrates = in_nrates;
+	time.resize(n_sampl);
+	for (auto it = in_signal[0].sig_time.begin(); it != in_signal[0].sig_time.end(); ++it)
     {
         time[i] = *it;
         i++;
     }
 
-    int check = 0;
-    //CfgFilePrint();
-    //DatFilePrint();
+	CfgFilePrint(in_signal, c_Path_comtrade, basename_comtrade);
+	DatFilePrint(in_signal, c_Path_comtrade, basename_comtrade);
 }
 
-/*
-//Функция формирования .cfg-файла
-void Comtrade::CfgFilePrint(std::string FileName,float Fnetwork,float Fsampl,int Nsampl,float* SIGNALS)
+///Функция формирования .cfg-файла
+void Comtrade::CfgFilePrint(QVector<SignalComtr>& in_signal, char c_Path_comtrade[], char basename_comtrade[])
 {
 	//Создаем пустой текстовый файл с расширением .cfg
-	int NASIG=0;//число аналоговых сигналов
-	int NDSIG=0;//число дискретных сигналов
-	int n    =0;//счетчик номеров сигналов
-	NUM  =zeros
+	int n_an_sig=0;//число аналоговых сигналов
+	int n_dis_sig=0;//число дискретных сигналов
 
-	for (int i = 0; i < SIGNALS.size(); i++)
+	for(unsigned short i = 0; i < sign_quantity; i++)
 	{
-		//Расчет количества аналогов и дискретов:
-		if (SIGNALS(1,i).SIGTYPE=='A')
-		{//если сигнал аналоговый, то:
-			NASIG=NASIG+1;
-			int n=n+1;
-			NUM(i,1)=n;
+		if (in_signal[i].sig_type == 'A')
+		{
+			n_an_sig++;
 		}
-
-		if (SIGNALS(1,i).SIGTYPE=='D')
-		{//если сигнал дискретный, то:
-			NDSIG=NDSIG+1;
-			int n=n+1;
-			NUM(i,1)=n;
+		if (in_signal[i].sig_type == 'D')
+		{
+			n_dis_sig++;
 		}
 	}
-	//Определяем общее число сигналов, число дискретных и число
-	//аналоговых сигналов:
-	std::string Ntotal = num2str(NASIG+NDSIG);
-	std::string NASIG  = strcat(num2str(NASIG),'A');
-	std::string NDSIG  = strcat(num2str(NDSIG),'D');
-	//Пишем название регистратора (версия симулинк+релиз)в
-	//пустой текстовый файл формата .cfg:
-	std::string c_Path = "D:\\work\\";
-	std::string FileName_out;
-	sprintf(FileName_out, "%s%s_mu.cfg", c_Path, FileName);//s -string, d - double
-	out_mu = fopen(FileName_out, "w");
 
-	MatLabVersion=ver('Simulink');
-	StationID=strcat(MatLabVersion.Name,'_',MatLabVersion.Version,...
-					 MatLabVersion.Release);
-	file=fopen(strcat(FileName,'.cfg'),'wt');
-	fprintf(file,'%s\n',strcat(StationID , ','  ,'1'));
-	fprintf(file,'%s\n',strcat(Ntotal,',',NASIG,',',NDSIG));
-	//Записываем в пустой тектовый файл с расширением .cfg
-	//информацию по сигналам
-	for (int i = 0; i < SIGNALS.size(); i++)
+	char filename[100]= {0};
+	FILE *out;
+	std::string str_out,
+			str_sig_id, str_sig_ph, str_sig_cc, str_sig_uu, str_sig_a, str_sig_b, str_sig_skew, str_sig_min, str_sig_max;
+
+	sprintf(filename, "%s%s.cfg", c_Path_comtrade, basename_comtrade);//s -string, d - double
+	out = fopen(filename, "w");
+
+	str_out ="Microcap 12 64 bit, 2023\n";
+	fputs(str_out.c_str(), out);
+
+	str_out = std::to_string(sign_quantity)+"," + std::to_string(n_an_sig)+"A" + "," + std::to_string(n_dis_sig)+"D" + "\n";
+	fputs(str_out.c_str(), out);
+
+	for (unsigned short i = 0; i < sign_quantity; i++)
 	{
-		if (SIGNALS(1,i).SIGTYPE=='A')
+		if (in_signal[i].sig_type == 'A')
 		{
-			fprintf(file,strcat(num2str(NUM(i,1)) , ','));
-			fprintf(file,strcat(SIGNALS(1,i).SIGID , ','));
-			fprintf(file,strcat(SIGNALS(1,i).SIGPH , ','));
-			fprintf(file,strcat(SIGNALS(1,i).SIGCC , ','));
-			fprintf(file,strcat(SIGNALS(1,i).SIGUU , ','));
-			fprintf(file,strcat(SIGNALS(1,i).SIGA , ','));
-			fprintf(file,strcat(SIGNALS(1,i).SIGB , ','));
-			fprintf(file,strcat(SIGNALS(1,i).SIGSKEW, ','));
-			fprintf(file,strcat(SIGNALS(1,i).SIGMIN), ',');
-			fprintf(file,strcat(',',SIGNALS(1,i).SIGMAX));
-			fprintf(file,'\n');
+			str_sig_id = in_signal[i].sig_id;
+			std::string str_sig_ph(1, in_signal[i].sig_ph);
+			str_sig_cc = in_signal[i].sig_cc;
+			str_sig_uu = in_signal[i].sig_uu;
+			str_sig_a = std::to_string(in_signal[i].sig_a);
+			str_sig_b = std::to_string(in_signal[i].sig_b);
+			str_sig_skew = std::to_string(in_signal[i].sig_skew);
+			str_sig_min = std::to_string(in_signal[i].sig_min);
+			str_sig_max = std::to_string(in_signal[i].sig_max);
+			str_out = std::to_string(i+1) + "," + str_sig_id +"," + str_sig_ph +"," + str_sig_cc +"," + str_sig_uu +"," + str_sig_a +","
+					+ str_sig_b +"," + str_sig_skew +"," + str_sig_min +","+ str_sig_max + "\n";
 		}
-		if (SIGNALS(1,i).SIGTYPE=='D')
-		{
-			fprintf(file,strcat(num2str(NUM(i,1)) , ','));
-			fprintf(file,strcat(SIGNALS(1,i).SIGID , ','));
-			fprintf(file,strcat(SIGNALS(1,i).SIGM));
-			fprintf(file,'\n');
-		}
+		fputs(str_out.c_str(), out);
 	}
-	//Частота дискретизации, количество замеров, время и.т.д
-	fprintf(file,Fnetwork);%частота сети
-	fprintf(file,'\n');
-	fprintf(file,'1');//колличество частот дискретизации
-	fprintf(file,'\n');
-	fprintf(file,strcat(Fsampl,',',Nsampl));//запись значений частоты дискретизации
-	fprintf(file,'\n');
-	fprintf(file,'19/10/2016,10:41:04.000');//время начала записи
-	fprintf(file,'\n');
-	fprintf(file,'19/10/2016,10:41:05.000');//время окончания записи
-	fprintf(file,'\n');
-	fprintf(file,'ASCII');//описание формата
-	fclose('all');//закрываем все файлы
+
+	str_out = std::to_string(f_network) + "\n";
+	fputs(str_out.c_str(), out);
+	str_out = std::to_string(nrates) + "\n";
+	fputs(str_out.c_str(), out);
+	str_out = std::to_string(f_sampl) + "," + std::to_string(n_sampl) + "\n";
+	fputs(str_out.c_str(), out);
+	str_out = "29/11/2023,10:41:04.000\n30/11/2023,15:26:05.000\nASCII\n";
+	fputs(str_out.c_str(), out);
+	fclose(out); // close file
 }
 
-void Comtrade::DatFilePrint(float* SIGNALS,float Time,std::string FileName)
+
+void Comtrade::DatFilePrint(QVector<SignalComtr>& in_signal, char c_Path_comtrade[], char basename_comtrade[])
 {
-	dlmwrite(strcat(FileName,'.dat'),'');
+	char filename[100]= {0};
+	FILE *out;
+	std::string str_out,
+			str_time;
 
-	if (nargin>0)
-	wdt  = length(SIGNALS);
-	lng  = length(SIGNALS(1).SIGDATA);
-	Data = zeros(lng, wdt);
+	sprintf(filename, "%s%s.dat", c_Path_comtrade, basename_comtrade);//s -string, d - double
+	out = fopen(filename, "w");
 
-	for i=1:wdt
-		Data(:,i) = SIGNALS(i).SIGDATA;
-	end
-
-	Number = transpose(1:lng);
-
-	datfile = [Number, Time, Data];
-
-	format = '';
-	n = 1;
-
-	for (int i = 1; i < wdt+2; i++)
+	for (unsigned long i = 0; i < n_sampl; i++)
 	{
-		if (i==wdt+2 && SIGNALS(n).SIGTYPE == 'A')
+		str_time = std::to_string(time[i]*100000);
+		str_out = std::to_string(i+1) + "," + str_time + ",";
+		for (unsigned short k = 0; k < sign_quantity; k++)
 		{
-			format = strcat(format,'%.6f','\n');
+			str_out += std::to_string(in_signal[k].sig_data[i]) + ",";
+			if  (k == sign_quantity - 1)
+				str_out += std::to_string(in_signal[k].sig_data[i]);
 		}
-
-		if (i==wdt+2 && SIGNALS(n).SIGTYPE == 'D')
-		{
-			format = strcat(format,'%.0f','\n');
-		}
-
-		if (i==1)
-		{
-		format = strcat(format,'%.0f',',');
-		}
-
-		if (i==2)
-		{
-			format = strcat(format,'%.0f',',');
-		}
-
-		if i>2 && i < wdt+2 && n < wdt
-		{
-			if SIGNALS(n).SIGTYPE == 'A'
-			{
-				format = strcat(format,'%.6f',',');
-				n = n + 1;
-			}
-
-			if (SIGNALS(n).SIGTYPE == 'D')
-			{
-				format = strcat(format,'%.0f',',');
-				n = n + 1;
-			}
-		}
-
-
-	file = fopen(strcat(FileName,'.dat'),'wt');
-	fprintf(file, format, transpose(datfile));
-	fclose('all');
-}
-
-void Comtrade::COMTRADEFORM(std::string FileName , std::string VoltageUnits , std::string CurrentUnits , float SIGA , float SIGB , std::string BusCreatorName , float* DAT)
-{
-	ModelName = bdroot(gcb);
-	directory=strcat(ModelName,'/',BusCreatorName);
-	SigNames_cell    =get_param(directory,'InputSignalNames');
-	SigNames		 =string(SigNames_cell);
-	SigNames_char    =char(SigNames_cell);
-
-	//Атрибуты сигналов:
-	SigTypes=zeros(1,1);%тип сигнала (дискрет/аналог)
-	SigUnits=zeros(1,4);%единицы измерения сигнала В/А
-	SigPh   =zeros(1,1);%фаза сигнала (А,В,С)
-	[lng, wdt] = size(DAT);
-
-	for (int i = 1; i < wdt; i++)
-	{
-		//Узнаем тип сигнала:
-		if (SigNames_char(i,1)=='_')
-		{SigTypes(i,1) = 'D';}
-		else
-		{SigTypes(i,1) = 'A';}
-
-		//Узнаем единицы измерения сигнала(только для аналогов!)
-		if (SigTypes(i,1)=='A' && SigNames_char(i,1)=='U')
-		{SigUnits(i,1:length(VoltageUnits))=VoltageUnits;}
-		else{
-			if (SigTypes(i,1)=='A' && SigNames_char(i,1)=='I')
-			{SigUnits(i,1:length(CurrentUnits))=CurrentUnits;}
-			else
-			{SigUnits(i,:)=' ';}
-		}
-
-		%Узнаем фазу сигнала (только для аналогов!)
-		if (SigTypes(i,1)=='A' && SigNames_char(i,2)=='a' && (SigNames_char(i,1)=='U' || SigNames_char(i,1)=='I'))
-		{SigPh(i,1)='A';}
-		else
-			if (SigTypes(i,1)=='A' && SigNames_char(i,2)=='b')
-			{SigPh(i,1)='B';}
-			else
-				if (SigTypes(i,1)=='A' && SigNames_char(i,2)=='c')
-				{SigPh(i,1)='C';}
-				else{SigPh(i,1)=' ';}
+		str_out +="\n";
+		fputs(str_out.c_str(), out);
 	}
-
-	SigTypes=char(SigTypes);
-	SigUnits=char(SigUnits);
-	SigPh   =char(SigPh);
-	//Signal(SIGID,SIGPH,SIGCC,SIGUU,SIGA,SIGB,SIGSKEW,SIGM,SIGTYPE,SIGDATA,TIME)
-	TIME=DAT(:,1);
-	SIG=Signal(' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ');
-
-	for (int i = 1; i < wdt; i++)
-	{
-		if (SigTypes(i,:)=='A')
-		{SIG(1,i)=Signal(SigNames(1,i) , SigPh(i,:) , ' ' , SigUnits(i,:) , SIGA , SIGB ,'0','0','A',DAT(:,i),TIME);}
-
-		if (SigTypes(i,:)=='D' && DAT(1,i)==0)
-		{SIG(1,i)=Signal(SigNames(1,i) , SigPh(i,:) , ' ' , SigUnits(i,:) , '1' , '0' , '0' , '0' , 'D',DAT(:,i),TIME);}
-
-		if (SigTypes(i,:)=='D' && DAT(1,i)==1)
-		{SIG(1,i)=Signal(SigNames(1,i),SigPh(i,:),' ',SigUnits(i,:),'1','0','0','1','D',DAT(:,i),TIME);}
-	}
-	SIG(:,1)=[];//Удяляем первый столбец, т.к. это время
-	COMTRADE(50,FileName,SIG);
+	fclose(out); // close file
 }
-*/

@@ -13,15 +13,13 @@ SOURCES += \
     main.cpp \
     mainwindow.cpp \
     Text_read.cpp \
-    Comtrade.cpp \
-    Text_write.cpp
+    Comtrade.cpp
 
 HEADERS += \
     SignalComtr.hpp \
     mainwindow.h \
     Text_read.hpp \
-    Comtrade.hpp \
-    Text_write.hpp
+    Comtrade.hpp
 
 FORMS += \
     mainwindow.ui

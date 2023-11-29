@@ -26,19 +26,19 @@ inline float get_value(std::string& str, unsigned long ind_inf_beg, unsigned sho
 }
 
 ///Обработка первой строки
-inline void name_setup(QVector<SignalComtr>& ASignal, unsigned long& i, std::string& stream, float K_CT, float K_VT, unsigned short& sig_num)
+inline void name_setup(QVector<SignalComtr>& ASignal, unsigned long& i, std::string& stream, unsigned short& sig_num)
 {
 	char tmp_ch[20] {0};//для чтения цифр
 	unsigned int j =0;
 	if (stream[i] == 'i')
 	{
         ASignal[sig_num].sig_uu = 'A';
-        ASignal[sig_num].sig_a = K_CT;
+		ASignal[sig_num].sig_a = 1;
 	}
 	if (stream[i] == 'v')
 	{
         ASignal[sig_num].sig_uu = 'V';
-        ASignal[sig_num].sig_a = K_VT;
+		ASignal[sig_num].sig_a = 1;
 	}
 	while (stream[i] != ' ') {
 		tmp_ch [j] = stream[i];
@@ -51,13 +51,13 @@ inline void name_setup(QVector<SignalComtr>& ASignal, unsigned long& i, std::str
 		}
 		i++; j++;
 	}
-    ASignal[sig_num].sig_ph = stream[i - 2];
     ASignal[sig_num].sig_id = std::string(tmp_ch);
     ASignal[sig_num].sig_num = sig_num;
 	sig_num++;
 }
 
-inline void data_setup(QVector<SignalComtr>& ASignal, unsigned long& i, std::string& stream, unsigned short s_quantity, 	unsigned int& str_n, unsigned short& col_n)
+inline void data_setup(QVector<SignalComtr>& ASignal, unsigned long& i, std::string& stream, unsigned short s_quantity,
+					   unsigned int& str_n, unsigned short& col_n, bool in_secondary_side, float in_Kvt, float in_Kct)
 {
 	if (stream[i] != ' ')
 	{
@@ -81,14 +81,27 @@ inline void data_setup(QVector<SignalComtr>& ASignal, unsigned long& i, std::str
 		}
 		else
 		{
-            ASignal[col_n - 1].sig_data[str_n-1] = data_tmp*pow(10, ten_degree);//Значение
+		   if (in_secondary_side && ASignal[col_n - 1].sig_uu == "V")
+			{
+			   ASignal[col_n - 1].sig_data[str_n-1] = data_tmp*pow(10, ten_degree)/in_Kvt;//Значение
+		   }
+		   else if (in_secondary_side && ASignal[col_n - 1].sig_uu == "A")
+		   {
+			   ASignal[col_n - 1].sig_data[str_n-1] = data_tmp*pow(10, ten_degree)/in_Kct;
+		   }
+		   else if (!in_secondary_side)
+		   {
+			   ASignal[col_n - 1].sig_data[str_n-1] = data_tmp*pow(10, ten_degree);
+		   }
 		}
 		col_n++;
 	}
 }
 
-Text_read::Text_read(std::string nameFile, std::string strPath)
+Text_read::Text_read(std::string nameFile, std::string strPath, bool in_secondary_side, unsigned short in_sign_quantity)
 {
+	sign_quantity = in_sign_quantity;
+	secondary_side = in_secondary_side;
 	ArrSignal.resize(sign_quantity);
 	std::string tmp_str, res;
 	std::ifstream file_r(strPath+nameFile+".txt");
@@ -107,13 +120,15 @@ Text_read::Text_read(std::string nameFile, std::string strPath)
 	d_startTime = get_value(res, inf_startTime_beg);
 	d_dT_beg = get_value(res, inf_dT_beg);
 
-	number_of_lines = ((d_maxTime- d_startTime)/ d_dT_beg)+1;
+	n_sampl = ((d_maxTime- d_startTime)/ d_dT_beg)+1;
+	f_sampl = 1/d_dT_beg;
 
-    while (res[resnum_beg++] == '='){}
-		resnum_beg += 11;//11 символов до буквы T
+	while (res[resnum_beg++] != 'T'){}
+
 
 	unsigned int str_num = 0;
 	unsigned short col_num = 0;
+	unsigned short sig_num = 0;
 
 	for (unsigned short k = 0; k < sign_quantity; k++)
 	{
@@ -122,8 +137,8 @@ Text_read::Text_read(std::string nameFile, std::string strPath)
         ArrSignal[k].sig_skew = Text_read_SIGSKEW;
         ArrSignal[k].sig_type = Text_read_SIGTYPE;
         ArrSignal[k].sig_m = Text_read_SIGM;
-        ArrSignal[k].sig_time.resize(number_of_lines);
-        ArrSignal[k].sig_data.resize(number_of_lines);
+		ArrSignal[k].sig_time.resize(n_sampl);
+		ArrSignal[k].sig_data.resize(n_sampl);
 	}
 
 	for (unsigned long i = resnum_beg; i < res.length(); i++)
@@ -132,19 +147,19 @@ Text_read::Text_read(std::string nameFile, std::string strPath)
 		{
 			if ((res[i] == 'i'&& res[i+1] == '(')|| (res[i] == 'v'&& res[i+1] == '('))
 			{
-				name_setup(ArrSignal, i, res, Kct, Kvt, col_num);
+				name_setup(ArrSignal, i, res, sig_num);
 			}
 		}
 		if (str_num > 0 && col_num < (sign_quantity +1))
         {
-			data_setup(ArrSignal, i, res,  sign_quantity, str_num, col_num);
+			data_setup(ArrSignal, i, res,  sign_quantity, str_num, col_num, secondary_side, Kvt, Kct);
 		}
 		if (res[i] == '\n')
 		{
 			str_num++;
 			col_num = 0;
 		}
-		if (str_num == number_of_lines + 1)
+		if (str_num == n_sampl + 1)
 		{
 			break;
 		}
@@ -154,7 +169,7 @@ Text_read::Text_read(std::string nameFile, std::string strPath)
 	{
         float max = ArrSignal[k].sig_data[0];
         float min = ArrSignal[k].sig_data[0];
-		for(unsigned long i = 0; i < number_of_lines; i++)
+		for(unsigned long i = 0; i < n_sampl; i++)
 		{
             if (ArrSignal[k].sig_data[i] > max)
 			{

@@ -5,9 +5,8 @@
 class Text_read
 {
 public:
-	Text_read(std::string nameFile, std::string strPath);
 
-	const unsigned short sign_quantity = 8;
+	unsigned short sign_quantity;
 	std::string Text_read_SIGCC = "";
 	float Text_read_SIGB = 0.0;
 	float Text_read_SIGSKEW = 0.0;
@@ -15,7 +14,8 @@ public:
 	float Text_read_SIGM = 0;
 	float Kct = 12000;
 	float Kvt = 20000/100;
-	unsigned long number_of_lines;
+	unsigned long n_sampl;//количество отсчетов
+	unsigned long f_sampl;//частота дискретизации
 
 	std::string needle_Data = "Actual Waveform Values";
 	std::string needle_maxTime = "Maximum Run Time";
@@ -30,12 +30,15 @@ public:
 	double d_maxTime = 0.0;
 	double d_startTime = 0.0;
 	double d_dT_beg = 0.0;
-
+	bool secondary_side;
+	unsigned short nrates = 1;//	количество различных скоростей дискретизации в файле данных
+	Text_read(std::string nameFile, std::string strPath, bool in_secondary_side, unsigned short in_sign_quantity);
 	QVector<SignalComtr> ArrSignal;
 };
 
 inline float get_value(std::string str, int ind_inf_beg);
 inline float get_value(std::string str, int ind_inf_beg, unsigned short& shift);
-inline void name_setup(QVector<SignalComtr>& ASignal, unsigned long& i, std::string& stream, float K_CT, float K_VT, unsigned short& sig_num);
-inline void data_setup(QVector<SignalComtr>& ASignal, unsigned long& i, std::string& stream, unsigned short s_quantity, unsigned int& str_n, unsigned short& col_n);
+inline void name_setup(QVector<SignalComtr>& ASignal, unsigned long& i, std::string& stream, unsigned short& sig_num);
+inline void data_setup(QVector<SignalComtr>& ASignal, unsigned long& i, std::string& stream, unsigned short s_quantity,
+					   unsigned int& str_n, unsigned short& col_n, bool in_secondary_side, float in_Kvt, float in_Kct);
 #endif // TEXT_READ_H
