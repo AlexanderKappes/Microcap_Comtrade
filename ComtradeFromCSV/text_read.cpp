@@ -33,7 +33,7 @@ inline void name_setup(QVector<SignalComtr>& ASignal, unsigned long& i, std::str
 	if (stream[i] == 'i')
 	{
         ASignal[sig_num].sig_uu = 'A';
-		ASignal[sig_num].sig_a = 1;
+        ASignal[sig_num].sig_a = 1;
 	}
 	if (stream[i] == 'v')
 	{

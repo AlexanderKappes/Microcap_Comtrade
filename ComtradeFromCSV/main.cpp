@@ -11,7 +11,7 @@ int main(int argc, char *argv[])
 	std::string strPath_microcap = "D:\\work\\Microcap_Comtrade\\";
 	std::string file_microcap_name = "GenTrans_v2_TGV300";
 
-	std::string strPath_comtrade = "D:\\work\\Comtrade_Microcap_files\\";
+    std::string strPath_comtrade = "D:\\work\\Microcap_Comtrade\\Comtrade_Microcap_files\\";
 	std::string file_comtrade_name = "TestComtradeMicrocap";
 	bool secondary_side = 1;
 	unsigned  short sign_quantity = 11;

@@ -8,6 +8,27 @@ CONFIG += c++11
 # In order to do so, uncomment the following line.
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
+greaterThan(QT_MAJOR_VERSION, 4) {
+    TARGET_ARCH=$${QT_ARCH}
+} else {
+    TARGET_ARCH=$${QMAKE_HOST.arch}
+}
+
+contains(TARGET_ARCH, x86_64) {
+    ARCHITECTURE = x64
+} else {
+    ARCHITECTURE = x86
+}
+
+win32-g++:contains(ARCHITECTURE, x64): {
+    INCLUDEPATH += C:/boost_1_83_0/boost_mingw1120_64/include/boost-1_83
+}
+
+win32-g++:contains(ARCHITECTURE, x64): {
+    INCLUDEPATH += C:/boost/boost_mingw1120_64/include/boost-1_83
+    LIBS += "-LC:/boost/boost_mingw1120_64/lib" \
+}
+
 SOURCES += \
     SignalComtr.cpp \
     main.cpp \
