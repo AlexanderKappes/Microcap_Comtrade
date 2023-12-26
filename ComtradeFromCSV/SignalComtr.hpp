@@ -1,7 +1,7 @@
 #ifndef SIGNALCOMTR_H
 #define SIGNALCOMTR_H
 #include <QObject>
-
+#include <QVector>
 class SignalComtr
 {
 public:

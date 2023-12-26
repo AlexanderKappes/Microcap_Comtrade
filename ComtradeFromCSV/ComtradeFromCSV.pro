@@ -21,12 +21,12 @@ contains(TARGET_ARCH, x86_64) {
 }
 
 win32-g++:contains(ARCHITECTURE, x64): {
-    INCLUDEPATH += C:/boost_1_83_0/boost_mingw1120_64/include/boost-1_83
+    INCLUDEPATH += C:/boost_1_84_0/boost_mingw1120_64/include/boost-1_84
 }
 
 win32-g++:contains(ARCHITECTURE, x64): {
-    INCLUDEPATH += C:/boost/boost_mingw1120_64/include/boost-1_83
-    LIBS += "-LC:/boost/boost_mingw1120_64/lib" \
+    INCLUDEPATH += C:/boost_1_84_0/boost_mingw1120_64/include/boost-1_84
+    LIBS += "-LC:/boost_1_84_0/boost_mingw1120_64/lib" \
 }
 
 SOURCES += \
