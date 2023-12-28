@@ -1,0 +1,731 @@
+[Russian_Comtrade_Edition Description] 
+PowerObjectCount=1
+Russian_Comtrade_Edition_Version=2017
+Russian_Comtrade_Edition_Revision=1.0
+
+[Russian_Comtrade_Edition Power_Object_#1] 
+Territory=
+Company_Name=
+Station_Name=Прософт-Системы
+RecordingDeviceCount=1
+
+[Russian_Comtrade_Edition Recording_Device_#1_#1] 
+Recording_Device_ID=ТПА-01 Денис
+Vendor=Prosoft-Systems
+Model=ТПА-01
+Serial_Number=tpa_rz88
+Hardware_Revision=3
+Software_Revision=7.5
+Comtrade_File_Name=
+EquipmentCount=1
+StatusChannelCount=0
+
+[Russian_Comtrade_Edition Analog_Channel_Equipment_#1_#1_#1] 
+Equipment_Type=Line
+Equipment_ID=Линия 110кВ
+Equipment_Short_Name=Линия 110кВ
+Voltage_Level_In_kV=110
+VT_ID=
+VT_Channel_Number=
+CT_ID=
+CT_Channel_Number=
+RP_Channel_Number=1,2,3,4,5,6,7
+RP_DChannel_Number=
+F_Channel_Number=
+ES_Channel_Number=
+OCS_Channel_Number=
+
+[Prosoft AnalogChannel#1] 
+ChannelType=Sine
+Type=U
+Physical=False
+Inversion=False
+PhysNum=1
+
+[Prosoft AnalogChannel#2] 
+ChannelType=Sine
+Type=U
+Physical=False
+Inversion=False
+PhysNum=2
+
+[Prosoft AnalogChannel#3] 
+ChannelType=Sine
+Type=U
+Physical=False
+Inversion=False
+PhysNum=3
+
+[Prosoft AnalogChannel#4] 
+ChannelType=Sine
+Type=I
+Physical=False
+Inversion=False
+PhysNum=4
+
+[Prosoft AnalogChannel#5] 
+ChannelType=Sine
+Type=I
+Physical=False
+Inversion=False
+PhysNum=5
+
+[Prosoft AnalogChannel#6] 
+ChannelType=Sine
+Type=I
+Physical=False
+Inversion=False
+PhysNum=6
+
+[Prosoft AnalogChannel#7] 
+ChannelType=Const
+Type=
+Physical=False
+Inversion=False
+PhysNum=7
+
+[Prosoft AnalogChannel#8] 
+ChannelType=Const
+Type=
+Physical=False
+Inversion=False
+PhysNum=8
+
+[Prosoft AnalogChannel#9] 
+ChannelType=Const
+Type=
+Physical=False
+Inversion=False
+PhysNum=9
+
+[Prosoft AnalogChannel#10] 
+ChannelType=Const
+Type=
+Physical=False
+Inversion=False
+PhysNum=10
+
+[Prosoft AnalogChannel#11] 
+ChannelType=Const
+Type=
+Physical=False
+Inversion=False
+PhysNum=11
+
+[Prosoft AnalogChannel#12] 
+ChannelType=Const
+Type=
+Physical=False
+Inversion=False
+PhysNum=12
+
+[Prosoft AnalogChannel#13] 
+ChannelType=Const
+Type=
+Physical=False
+Inversion=False
+PhysNum=13
+
+[Prosoft AnalogChannel#14] 
+ChannelType=Const
+Type=
+Physical=False
+Inversion=False
+PhysNum=14
+
+[Prosoft AnalogChannel#15] 
+ChannelType=Const
+Type=
+Physical=False
+Inversion=False
+PhysNum=15
+
+[Prosoft AnalogChannel#16] 
+ChannelType=Const
+Type=
+Physical=False
+Inversion=False
+PhysNum=16
+
+[Prosoft AnalogChannel#17] 
+ChannelType=Const
+Type=
+Physical=False
+Inversion=False
+PhysNum=17
+
+[Prosoft AnalogChannel#18] 
+ChannelType=Const
+Type=
+Physical=False
+Inversion=False
+PhysNum=18
+
+[Prosoft AnalogChannel#19] 
+ChannelType=Const
+Type=
+Physical=False
+Inversion=False
+PhysNum=19
+
+[Prosoft AnalogChannel#20] 
+ChannelType=Const
+Type=
+Physical=False
+Inversion=False
+PhysNum=20
+
+[Prosoft AnalogChannel#21] 
+ChannelType=Const
+Type=
+Physical=False
+Inversion=False
+PhysNum=21
+
+[Prosoft AnalogChannel#22] 
+ChannelType=Const
+Type=
+Physical=False
+Inversion=False
+PhysNum=22
+
+[Prosoft AnalogChannel#23] 
+ChannelType=Const
+Type=
+Physical=False
+Inversion=False
+PhysNum=23
+
+[Prosoft AnalogChannel#24] 
+ChannelType=Const
+Type=
+Physical=False
+Inversion=False
+PhysNum=24
+
+[Prosoft AnalogChannel#25] 
+ChannelType=Const
+Type=
+Physical=False
+Inversion=False
+PhysNum=25
+
+[Prosoft AnalogChannel#26] 
+ChannelType=Const
+Type=
+Physical=False
+Inversion=False
+PhysNum=26
+
+[Prosoft AnalogChannel#27] 
+ChannelType=Const
+Type=
+Physical=False
+Inversion=False
+PhysNum=27
+
+[Prosoft AnalogChannel#28] 
+ChannelType=Const
+Type=
+Physical=False
+Inversion=False
+PhysNum=28
+
+[Prosoft AnalogChannel#29] 
+ChannelType=Const
+Type=
+Physical=False
+Inversion=False
+PhysNum=29
+
+[Prosoft AnalogChannel#30] 
+ChannelType=Const
+Type=
+Physical=False
+Inversion=False
+PhysNum=30
+
+[Prosoft AnalogChannel#31] 
+ChannelType=Const
+Type=
+Physical=False
+Inversion=False
+PhysNum=31
+
+[Prosoft AnalogChannel#32] 
+ChannelType=Const
+Type=
+Physical=False
+Inversion=False
+PhysNum=32
+
+[Prosoft AnalogChannel#33] 
+ChannelType=Const
+Type=
+Physical=False
+Inversion=False
+PhysNum=33
+
+[Prosoft AnalogChannel#34] 
+ChannelType=Const
+Type=
+Physical=False
+Inversion=False
+PhysNum=34
+
+[Prosoft AnalogChannel#35] 
+ChannelType=Const
+Type=
+Physical=False
+Inversion=False
+PhysNum=35
+
+[Prosoft AnalogChannel#36] 
+ChannelType=Const
+Type=
+Physical=False
+Inversion=False
+PhysNum=36
+
+[Prosoft AnalogChannel#37] 
+ChannelType=Const
+Type=
+Physical=False
+Inversion=False
+PhysNum=37
+
+[Prosoft AnalogChannel#38] 
+ChannelType=Const
+Type=
+Physical=False
+Inversion=False
+PhysNum=38
+
+[Prosoft AnalogChannel#39] 
+ChannelType=Const
+Type=
+Physical=False
+Inversion=False
+PhysNum=39
+
+[Prosoft AnalogChannel#40] 
+ChannelType=Const
+Type=
+Physical=False
+Inversion=False
+PhysNum=40
+
+[Prosoft AnalogChannel#41] 
+ChannelType=Const
+Type=
+Physical=False
+Inversion=False
+PhysNum=41
+
+[Prosoft AnalogChannel#42] 
+ChannelType=Const
+Type=
+Physical=False
+Inversion=False
+PhysNum=42
+
+[Prosoft AnalogChannel#43] 
+ChannelType=Const
+Type=
+Physical=False
+Inversion=False
+PhysNum=43
+
+[Prosoft AnalogChannel#44] 
+ChannelType=Const
+Type=
+Physical=False
+Inversion=False
+PhysNum=44
+
+[Prosoft AnalogChannel#45] 
+ChannelType=Const
+Type=
+Physical=False
+Inversion=False
+PhysNum=45
+
+[Prosoft AnalogChannel#46] 
+ChannelType=Const
+Type=
+Physical=False
+Inversion=False
+PhysNum=46
+
+[Prosoft AnalogChannel#47] 
+ChannelType=Const
+Type=
+Physical=False
+Inversion=False
+PhysNum=47
+
+[Prosoft AnalogChannel#48] 
+ChannelType=Const
+Type=
+Physical=False
+Inversion=False
+PhysNum=48
+
+[Prosoft AnalogChannel#49] 
+ChannelType=Const
+Type=
+Physical=False
+Inversion=False
+PhysNum=49
+
+[Prosoft AnalogChannel#50] 
+ChannelType=Const
+Type=
+Physical=False
+Inversion=False
+PhysNum=50
+
+[Prosoft AnalogChannel#51] 
+ChannelType=Const
+Type=
+Physical=False
+Inversion=False
+PhysNum=51
+
+[Prosoft AnalogChannel#52] 
+ChannelType=Const
+Type=
+Physical=False
+Inversion=False
+PhysNum=52
+
+[Prosoft AnalogChannel#53] 
+ChannelType=Const
+Type=
+Physical=False
+Inversion=False
+PhysNum=53
+
+[Prosoft AnalogChannel#54] 
+ChannelType=Const
+Type=
+Physical=False
+Inversion=False
+PhysNum=54
+
+[Prosoft AnalogChannel#55] 
+ChannelType=Const
+Type=
+Physical=False
+Inversion=False
+PhysNum=55
+
+[Prosoft AnalogChannel#56] 
+ChannelType=Const
+Type=
+Physical=False
+Inversion=False
+PhysNum=56
+
+[Prosoft AnalogChannel#57] 
+ChannelType=Const
+Type=
+Physical=False
+Inversion=False
+PhysNum=57
+
+[Prosoft AnalogChannel#58] 
+ChannelType=Const
+Type=
+Physical=False
+Inversion=False
+PhysNum=58
+
+[Prosoft AnalogChannel#59] 
+ChannelType=Const
+Type=
+Physical=False
+Inversion=False
+PhysNum=59
+
+[Prosoft AnalogChannel#60] 
+ChannelType=Const
+Type=
+Physical=False
+Inversion=False
+PhysNum=60
+
+[Prosoft AnalogChannel#61] 
+ChannelType=Const
+Type=
+Physical=False
+Inversion=False
+PhysNum=61
+
+[Prosoft AnalogChannel#62] 
+ChannelType=Const
+Type=
+Physical=False
+Inversion=False
+PhysNum=62
+
+[Prosoft AnalogChannel#63] 
+ChannelType=Const
+Type=
+Physical=False
+Inversion=False
+PhysNum=63
+
+[Prosoft AnalogChannel#64] 
+ChannelType=Const
+Type=
+Physical=False
+Inversion=False
+PhysNum=64
+
+[Prosoft AnalogChannel#65] 
+ChannelType=Const
+Type=
+Physical=False
+Inversion=False
+PhysNum=65
+
+[Prosoft AnalogChannel#66] 
+ChannelType=Const
+Type=
+Physical=False
+Inversion=False
+PhysNum=66
+
+[Prosoft AnalogChannel#67] 
+ChannelType=Const
+Type=
+Physical=False
+Inversion=False
+PhysNum=67
+
+[Prosoft AnalogChannel#68] 
+ChannelType=Const
+Type=
+Physical=False
+Inversion=False
+PhysNum=68
+
+[Prosoft AnalogChannel#69] 
+ChannelType=Const
+Type=
+Physical=False
+Inversion=False
+PhysNum=69
+
+[Prosoft AnalogChannel#70] 
+ChannelType=Const
+Type=
+Physical=False
+Inversion=False
+PhysNum=70
+
+[Prosoft AnalogChannel#71] 
+ChannelType=Const
+Type=
+Physical=False
+Inversion=False
+PhysNum=71
+
+[Prosoft AnalogChannel#72] 
+ChannelType=Const
+Type=
+Physical=False
+Inversion=False
+PhysNum=72
+
+[Prosoft AnalogChannel#73] 
+ChannelType=Const
+Type=
+Physical=False
+Inversion=False
+PhysNum=73
+
+[Prosoft AnalogChannel#74] 
+ChannelType=Const
+Type=
+Physical=False
+Inversion=False
+PhysNum=74
+
+[Prosoft AnalogChannel#75] 
+ChannelType=Const
+Type=
+Physical=False
+Inversion=False
+PhysNum=75
+
+[Prosoft AnalogChannel#76] 
+ChannelType=Const
+Type=
+Physical=False
+Inversion=False
+PhysNum=76
+
+[Prosoft AnalogChannel#77] 
+ChannelType=Const
+Type=
+Physical=False
+Inversion=False
+PhysNum=77
+
+[Prosoft AnalogChannel#78] 
+ChannelType=Const
+Type=
+Physical=False
+Inversion=False
+PhysNum=78
+
+[Prosoft AnalogChannel#79] 
+ChannelType=Const
+Type=
+Physical=False
+Inversion=False
+PhysNum=79
+
+[Prosoft AnalogChannel#80] 
+ChannelType=Const
+Type=
+Physical=False
+Inversion=False
+PhysNum=80
+
+[Prosoft AnalogChannel#81] 
+ChannelType=Const
+Type=
+Physical=False
+Inversion=False
+PhysNum=81
+
+[Prosoft AnalogChannel#82] 
+ChannelType=Const
+Type=
+Physical=False
+Inversion=False
+PhysNum=82
+
+[Prosoft AnalogChannel#83] 
+ChannelType=Const
+Type=
+Physical=False
+Inversion=False
+PhysNum=83
+
+[Prosoft AnalogChannel#84] 
+ChannelType=Const
+Type=
+Physical=False
+Inversion=False
+PhysNum=84
+
+[Prosoft AnalogChannel#85] 
+ChannelType=Const
+Type=
+Physical=False
+Inversion=False
+PhysNum=85
+
+[Prosoft StatusChannel#1] 
+Physical=False
+Inversion=False
+PhysNum=1
+
+[Prosoft StatusChannel#2] 
+Physical=False
+Inversion=False
+PhysNum=2
+
+[Prosoft StatusChannel#3] 
+Physical=False
+Inversion=False
+PhysNum=3
+
+[Prosoft StatusChannel#4] 
+Physical=False
+Inversion=False
+PhysNum=4
+
+[Prosoft StatusChannel#5] 
+Physical=False
+Inversion=False
+PhysNum=5
+
+[Prosoft StatusChannel#6] 
+Physical=False
+Inversion=False
+PhysNum=6
+
+[Prosoft StatusChannel#7] 
+Physical=False
+Inversion=False
+PhysNum=7
+
+[Prosoft StatusChannel#8] 
+Physical=False
+Inversion=False
+PhysNum=8
+
+[Prosoft StatusChannel#9] 
+Physical=False
+Inversion=False
+PhysNum=9
+
+[Prosoft StatusChannel#10] 
+Physical=False
+Inversion=False
+PhysNum=10
+
+[Prosoft StatusChannel#11] 
+Physical=False
+Inversion=False
+PhysNum=11
+
+[Prosoft StatusChannel#12] 
+Physical=False
+Inversion=False
+PhysNum=12
+
+[Prosoft StatusChannel#13] 
+Physical=False
+Inversion=False
+PhysNum=13
+
+[Prosoft StatusChannel#14] 
+Physical=False
+Inversion=False
+PhysNum=14
+
+[Prosoft StatusChannel#15] 
+Physical=False
+Inversion=False
+PhysNum=15
+
+[Prosoft StatusChannel#16] 
+Physical=False
+Inversion=False
+PhysNum=16
+
+[Prosoft StatusChannel#17] 
+Physical=False
+Inversion=False
+PhysNum=17
+
+[Prosoft StatusChannel#18] 
+Physical=False
+Inversion=False
+PhysNum=18
+
+[Prosoft StatusChannel#19] 
+Physical=False
+Inversion=False
+PhysNum=19
+
+[Prosoft Fault#1] 
+Reason=Алгоритм "Пуск ОСЦ"
+BlockNum=400
+

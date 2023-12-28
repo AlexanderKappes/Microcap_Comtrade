@@ -33,12 +33,10 @@ inline void name_setup(QVector<SignalComtr>& ASignal, unsigned long& i, std::str
 	if (stream[i] == 'i')
 	{
         ASignal[sig_num].sig_uu = 'A';
-        ASignal[sig_num].sig_a = 1;
 	}
 	if (stream[i] == 'v')
 	{
         ASignal[sig_num].sig_uu = 'V';
-		ASignal[sig_num].sig_a = 1;
 	}
 	while (stream[i] != ' ') {
 		tmp_ch [j] = stream[i];
@@ -51,7 +49,7 @@ inline void name_setup(QVector<SignalComtr>& ASignal, unsigned long& i, std::str
 		}
 		i++; j++;
 	}
-    ASignal[sig_num].sig_id = std::string(tmp_ch);
+    ASignal[sig_num].sig_ch_id = std::string(tmp_ch);
     ASignal[sig_num].sig_num = sig_num;
 	sig_num++;
 }
@@ -91,7 +89,7 @@ inline void data_setup(QVector<SignalComtr>& ASignal, unsigned long& i, std::str
 		   }
 		   else if (!in_secondary_side)
 		   {
-			   ASignal[col_n - 1].sig_data[str_n-1] = data_tmp*pow(10, ten_degree);
+               ASignal[col_n - 1].sig_data[str_n-1] = data_tmp*pow(10, ten_degree);
 		   }
 		}
 		col_n++;
@@ -125,20 +123,20 @@ Text_read::Text_read(std::string nameFile, std::string strPath, bool in_secondar
 
 	while (res[resnum_beg++] != 'T'){}
 
-
 	unsigned int str_num = 0;
 	unsigned short col_num = 0;
 	unsigned short sig_num = 0;
 
 	for (unsigned short k = 0; k < sign_quantity; k++)
 	{
-        ArrSignal[k].sig_cc = Text_read_SIGCC;
-        ArrSignal[k].sig_b = Text_read_SIGB;
-        ArrSignal[k].sig_skew = Text_read_SIGSKEW;
-        ArrSignal[k].sig_type = Text_read_SIGTYPE;
-        ArrSignal[k].sig_m = Text_read_SIGM;
-		ArrSignal[k].sig_time.resize(n_sampl);
-		ArrSignal[k].sig_data.resize(n_sampl);
+      ArrSignal[k].sig_ccbm = Text_read_SIGCC;
+      ArrSignal[k].sig_a = Text_read_SIGA;
+      ArrSignal[k].sig_b = Text_read_SIGB;
+      ArrSignal[k].sig_skew = Text_read_SIGSKEW;
+      ArrSignal[k].sig_type = Text_read_SIGTYPE;
+      ArrSignal[k].sig_m = Text_read_SIGM;
+    ArrSignal[k].sig_time.resize(n_sampl);
+    ArrSignal[k].sig_data.resize(n_sampl);
 	}
 
 	for (unsigned long i = resnum_beg; i < res.length(); i++)
@@ -180,5 +178,19 @@ Text_read::Text_read(std::string nameFile, std::string strPath, bool in_secondar
                 ArrSignal[k].sig_min = ArrSignal[k].sig_data[i];
 			}
 		}
+        if(ArrSignal[k].sig_uu == "A")
+        {
+            ArrSignal[k].sig_primary = Primary_CT;
+            ArrSignal[k].sig_secondary = Secondary_CT;
+        }
+        else if (ArrSignal[k].sig_uu == "V")
+        {
+            ArrSignal[k].sig_primary = Primary_VT;
+            ArrSignal[k].sig_secondary = Secondary_VT;
+        }
+        else{
+            ArrSignal[k].sig_primary = 1;
+            ArrSignal[k].sig_secondary = 1;
+        }
 	}
 }

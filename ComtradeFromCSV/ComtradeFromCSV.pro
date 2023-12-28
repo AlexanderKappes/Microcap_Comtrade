@@ -2,7 +2,7 @@ QT       += core gui
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
-CONFIG += c++11
+CONFIG += c++20
 
 # You can make your code fail to compile if it uses deprecated APIs.
 # In order to do so, uncomment the following line.
@@ -20,13 +20,14 @@ contains(TARGET_ARCH, x86_64) {
     ARCHITECTURE = x86
 }
 
-win32-g++:contains(ARCHITECTURE, x64): {
+win32-g++:contains(ARCHITECTURE, x86): {
     INCLUDEPATH += C:/boost_1_84_0/boost_mingw1120_64/include/boost-1_84
+    LIBS += "-LC:/boost/boost_mingw1120_64/lib" \
 }
 
 win32-g++:contains(ARCHITECTURE, x64): {
     INCLUDEPATH += C:/boost_1_84_0/boost_mingw1120_64/include/boost-1_84
-    LIBS += "-LC:/boost_1_84_0/boost_mingw1120_64/lib" \
+    LIBS += "-LC:/boost/boost_mingw1120_64/lib" \
 }
 
 SOURCES += \

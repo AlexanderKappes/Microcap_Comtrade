@@ -1,6 +1,6 @@
 #include "Comtrade.hpp"
 #include "boost/convert.hpp"
-#include <boost/convert/stream.hpp>
+#include "boost/convert/stream.hpp"
 using boost::convert;
 
 Comtrade::Comtrade(std::string& in_strPath, std::string& in_FileName, unsigned short in_Fnetwork, QVector<SignalComtr>& in_signal,
@@ -55,33 +55,50 @@ void Comtrade::CfgFilePrint(QVector<SignalComtr>& in_signal, char c_Path_comtrad
 	char filename[100]= {0};
 	FILE *out;
 	std::string str_out,
-			str_sig_id, str_sig_ph, str_sig_cc, str_sig_uu, str_sig_a, str_sig_b, str_sig_skew, str_sig_min, str_sig_max;
+            str_sig_An, str_sig_ch_id, str_sig_ph, str_sig_ccbm, str_sig_uu, str_sig_a, str_sig_b, str_sig_skew, str_sig_min, str_sig_max, str_sig_primary, str_sig_secondary, str_sig_PS;
 
 	sprintf(filename, "%s%s.cfg", c_Path_comtrade, basename_comtrade);//s -string, d - double
 	out = fopen(filename, "w");
 
-    str_out ="Microcap 12 64 bit, 2023\n";
+    str_out ="Microcap 12 64 bit,GenMicrocap,2013\n";
 	fputs(str_out.c_str(), out);
 
     str_out = std::to_string(sign_quantity)+"," + std::to_string(n_an_sig)+"A" + "," + std::to_string(n_dis_sig)+"D" + "\n";
 	fputs(str_out.c_str(), out);
     boost::cnv::cstream cnv;
+    str_sig_primary = "1";
+    str_sig_secondary = "1";
+    str_sig_PS = "S";
 	for (unsigned short i = 0; i < sign_quantity; i++)
 	{
 		if (in_signal[i].sig_type == 'A')
 		{
-			str_sig_id = in_signal[i].sig_id;
-			std::string str_sig_ph(1, in_signal[i].sig_ph);
-			str_sig_cc = in_signal[i].sig_cc;
-			str_sig_uu = in_signal[i].sig_uu;
+            str_sig_An = std::to_string(i+1);
+            str_sig_ch_id = in_signal[i].sig_ch_id;
+        std::string str_sig_ph(1, in_signal[i].sig_ph);
+        str_sig_ccbm = in_signal[i].sig_ccbm;
+        str_sig_uu = in_signal[i].sig_uu;
             str_sig_a = convert<std::string>(in_signal[i].sig_a, cnv).value();
             str_sig_b = convert<std::string>(in_signal[i].sig_b, cnv).value();
-			str_sig_skew = std::to_string(in_signal[i].sig_skew);
+        str_sig_skew = std::to_string(in_signal[i].sig_skew);
             str_sig_min = convert<std::string>(in_signal[i].sig_min, cnv).value();
             str_sig_max = convert<std::string>(in_signal[i].sig_max, cnv).value();
-			str_out = std::to_string(i+1) + "," + str_sig_id +"," + str_sig_ph +"," + str_sig_cc +"," + str_sig_uu +"," + str_sig_a +","
-                    + str_sig_b +"," + str_sig_skew +"," + str_sig_min +","+ str_sig_max + "\n";
-                    //+ str_sig_b +"," + str_sig_skew +"," + str_sig_min +","+ str_sig_max + ",0,0,1,1,S\n";
+            str_sig_primary = std::to_string(in_signal[i].sig_primary);
+            str_sig_secondary = std::to_string(in_signal[i].sig_secondary);
+        str_out = str_sig_An +
+                      "," + str_sig_ch_id +
+                      "," + str_sig_ph +
+                      "," + str_sig_ccbm +
+                      "," + str_sig_uu +
+                      "," + str_sig_a +
+                      "," + str_sig_b +
+                      "," + str_sig_skew +
+                      "," + str_sig_min +
+                      ","+ str_sig_max +
+                      "," + str_sig_primary +
+                      ","+ str_sig_secondary +
+                      "," + str_sig_PS +
+                      "\n";
 		}
 		fputs(str_out.c_str(), out);
 	}
@@ -92,7 +109,7 @@ void Comtrade::CfgFilePrint(QVector<SignalComtr>& in_signal, char c_Path_comtrad
 	fputs(str_out.c_str(), out);
     str_out = std::to_string(f_sampl) + "," + std::to_string(n_sampl) + "\n";
 	fputs(str_out.c_str(), out);
-    str_out = "29/11/2023,10:41:04.000\n30/11/2023,15:26:05.000\nASCII\n";
+    str_out = "29/11/2023,10:41:04.000\n30/11/2023,15:26:05.000\nASCII\n1\n+5h,+5h\n6,0\n";
 	fputs(str_out.c_str(), out);
 	fclose(out); // close file
 }
@@ -114,9 +131,9 @@ void Comtrade::DatFilePrint(QVector<SignalComtr>& in_signal, char c_Path_comtrad
 		str_out = std::to_string(i+1) + "," + str_time + ",";
 		for (unsigned short k = 0; k < sign_quantity; k++)
 		{
-			str_out += std::to_string(in_signal[k].sig_data[i]) + ",";
+            str_out += std::to_string(in_signal[k].sig_data[i]*1000) + ",";
 			if  (k == sign_quantity - 1)
-				str_out += std::to_string(in_signal[k].sig_data[i]);
+                str_out += std::to_string(in_signal[k].sig_data[i]*1000);//Искусственно масштабируется значение, чтобы потом уменьшить его через коэффициент а = 0.001
 		}
 		str_out +="\n";
 		fputs(str_out.c_str(), out);

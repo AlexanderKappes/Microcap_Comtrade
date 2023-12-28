@@ -1,0 +1,99 @@
+[Russian_Comtrade_Edition Description] 
+PowerObjectCount=1
+Russian_Comtrade_Edition_Version=2017
+Russian_Comtrade_Edition_Revision=1.0
+
+[Russian_Comtrade_Edition Power_Object_#1] 
+Territory=Не указано
+Company_Name=Не указано
+Station_Name=Microcap 12 64 bit
+RecordingDeviceCount=1
+
+[Russian_Comtrade_Edition Recording_Device_#1_#1] 
+Recording_Device_ID=2023
+Vendor=Не указано
+Model=Не указано
+Serial_Number=Не указано
+Hardware_Revision=Не указано
+Software_Revision=Не указано
+Comtrade_File_Name=TestComtradeMicrocap.cfg
+EquipmentCount=0
+StatusChannelCount=0
+
+[Prosoft AnalogChannel#1] 
+ChannelType=Unknown
+Type=
+Physical=True
+Inversion=False
+PhysNum=1
+
+[Prosoft AnalogChannel#2] 
+ChannelType=Unknown
+Type=
+Physical=True
+Inversion=False
+PhysNum=2
+
+[Prosoft AnalogChannel#3] 
+ChannelType=Unknown
+Type=
+Physical=True
+Inversion=False
+PhysNum=3
+
+[Prosoft AnalogChannel#4] 
+ChannelType=Unknown
+Type=
+Physical=True
+Inversion=False
+PhysNum=4
+
+[Prosoft AnalogChannel#5] 
+ChannelType=Unknown
+Type=
+Physical=True
+Inversion=False
+PhysNum=5
+
+[Prosoft AnalogChannel#6] 
+ChannelType=Unknown
+Type=
+Physical=True
+Inversion=False
+PhysNum=6
+
+[Prosoft AnalogChannel#7] 
+ChannelType=Unknown
+Type=
+Physical=True
+Inversion=False
+PhysNum=7
+
+[Prosoft AnalogChannel#8] 
+ChannelType=Unknown
+Type=
+Physical=True
+Inversion=False
+PhysNum=8
+
+[Prosoft AnalogChannel#9] 
+ChannelType=Unknown
+Type=
+Physical=True
+Inversion=False
+PhysNum=9
+
+[Prosoft AnalogChannel#10] 
+ChannelType=Unknown
+Type=
+Physical=True
+Inversion=False
+PhysNum=10
+
+[Prosoft AnalogChannel#11] 
+ChannelType=Unknown
+Type=
+Physical=True
+Inversion=False
+PhysNum=11
+

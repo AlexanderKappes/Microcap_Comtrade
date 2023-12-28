@@ -8,12 +8,17 @@ public:
 
 	unsigned short sign_quantity;
 	std::string Text_read_SIGCC = "";
+        float Text_read_SIGA = 0.001;
 	float Text_read_SIGB = 0.0;
 	float Text_read_SIGSKEW = 0.0;
 	char Text_read_SIGTYPE = 'A';
 	float Text_read_SIGM = 0;
-	float Kct = 12000;
-	float Kvt = 20000/100;
+    unsigned int Primary_CT = 12000;
+    unsigned int Secondary_CT = 1;
+     unsigned int Primary_VT = 20000;
+     unsigned int Secondary_VT = 100;
+    float Kct = Primary_CT/Secondary_CT;
+    float Kvt = Primary_VT/Secondary_VT;
 	unsigned long n_sampl;//количество отсчетов
 	unsigned long f_sampl;//частота дискретизации
 
