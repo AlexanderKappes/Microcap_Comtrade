@@ -61,13 +61,13 @@ public:
         pB_Apply->setGeometry(QRect(10, 220, 151, 24));
         lE_strPath_microcap = new QLineEdit(centralwidget);
         lE_strPath_microcap->setObjectName("lE_strPath_microcap");
-        lE_strPath_microcap->setGeometry(QRect(10, 30, 281, 24));
+        lE_strPath_microcap->setGeometry(QRect(10, 30, 441, 24));
         lE_file_microcap_name = new QLineEdit(centralwidget);
         lE_file_microcap_name->setObjectName("lE_file_microcap_name");
         lE_file_microcap_name->setGeometry(QRect(10, 80, 281, 24));
         lE_strPath_comtrade = new QLineEdit(centralwidget);
         lE_strPath_comtrade->setObjectName("lE_strPath_comtrade");
-        lE_strPath_comtrade->setGeometry(QRect(10, 130, 281, 24));
+        lE_strPath_comtrade->setGeometry(QRect(10, 130, 441, 24));
         lE_file_comtrade_name = new QLineEdit(centralwidget);
         lE_file_comtrade_name->setObjectName("lE_file_comtrade_name");
         lE_file_comtrade_name->setGeometry(QRect(10, 180, 281, 24));
@@ -93,7 +93,7 @@ public:
         label_3->setText(QCoreApplication::translate("MainWindow", "\320\237\321\203\321\202\321\214 \320\272 \320\277\320\260\320\277\320\272\320\265 \320\264\320\273\321\217 \321\205\321\200\320\260\320\275\320\265\320\275\320\270\320\265 COMTRADE \321\204\320\260\320\271\320\273\320\276\320\262", nullptr));
         label_4->setText(QCoreApplication::translate("MainWindow", "\320\235\320\260\320\267\320\262\320\260\320\275\320\270\320\265 COMTRADE \321\204\320\260\320\271\320\273\320\260", nullptr));
         pB_Apply->setText(QCoreApplication::translate("MainWindow", "Apply", nullptr));
-        lE_file_comtrade_name->setText(QCoreApplication::translate("MainWindow", "SDGDJHRTJRJDFDFHDFHDFHFGHTGFH", nullptr));
+        lE_file_comtrade_name->setText(QString());
     } // retranslateUi
 
 };

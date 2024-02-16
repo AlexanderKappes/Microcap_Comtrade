@@ -1,0 +1,55 @@
+\doxysection{Text\+\_\+read.\+hpp}
+\hypertarget{_text__read_8hpp_source}{}\label{_text__read_8hpp_source}\index{Microcap\_Comtrade/Text\_read.hpp@{Microcap\_Comtrade/Text\_read.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ TEXT\_READ\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ TEXT\_READ\_H}}
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ "{}SignalComtr.hpp"{}}}
+\DoxyCodeLine{00004\ }
+\DoxyCodeLine{00005\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_text__read}{Text\_read}}}
+\DoxyCodeLine{00006\ \{}
+\DoxyCodeLine{00007\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00008\ }
+\DoxyCodeLine{00009\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{short}\ sign\_quantity;}
+\DoxyCodeLine{00010\ \ \ \ \ std::string\ Text\_read\_SIGCC\ =\ \textcolor{stringliteral}{"{}"{}};}
+\DoxyCodeLine{00011\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ Text\_read\_SIGA\ =\ 0.001;}
+\DoxyCodeLine{00012\ \ \ \ \ \textcolor{keywordtype}{float}\ Text\_read\_SIGB\ =\ 0.0;}
+\DoxyCodeLine{00013\ \ \ \ \ \textcolor{keywordtype}{float}\ Text\_read\_SIGSKEW\ =\ 0.0;}
+\DoxyCodeLine{00014\ \ \ \ \ \textcolor{keywordtype}{char}\ Text\_read\_SIGTYPE\ =\ \textcolor{charliteral}{'A'};}
+\DoxyCodeLine{00015\ \ \ \ \ \textcolor{keywordtype}{float}\ Text\_read\_SIGM\ =\ 0;}
+\DoxyCodeLine{00016\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ Primary\_CT\ =\ 12000;}
+\DoxyCodeLine{00017\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ Secondary\_CT\ =\ 1;}
+\DoxyCodeLine{00018\ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ Primary\_VT\ =\ 20000;}
+\DoxyCodeLine{00019\ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ Secondary\_VT\ =\ 100;}
+\DoxyCodeLine{00020\ \ \ \ \ \textcolor{keywordtype}{float}\ Kct\ =\ Primary\_CT/Secondary\_CT;}
+\DoxyCodeLine{00021\ \ \ \ \ \textcolor{keywordtype}{float}\ Kvt\ =\ Primary\_VT/Secondary\_VT;}
+\DoxyCodeLine{00022\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ n\_sampl;\textcolor{comment}{//количество\ отсчетов}}
+\DoxyCodeLine{00023\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ f\_sampl;\textcolor{comment}{//частота\ дискретизации}}
+\DoxyCodeLine{00024\ }
+\DoxyCodeLine{00025\ \ \ \ \ std::string\ needle\_Data\ =\ \textcolor{stringliteral}{"{}Actual\ Waveform\ Values"{}};}
+\DoxyCodeLine{00026\ \ \ \ \ std::string\ needle\_maxTime\ =\ \textcolor{stringliteral}{"{}Maximum\ Run\ Time"{}};}
+\DoxyCodeLine{00027\ \ \ \ \ std::string\ needle\_startTime\ =\ \textcolor{stringliteral}{"{}Output\ Start\ Time"{}};}
+\DoxyCodeLine{00028\ \ \ \ \ std::string\ needle\_dT\ =\ \textcolor{stringliteral}{"{}Maximum\ Time\ Step"{}};}
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00030\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ inf\_maxTime\_beg\ =\ 0;}
+\DoxyCodeLine{00031\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ inf\_startTime\_beg\ =\ 0;}
+\DoxyCodeLine{00032\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ inf\_dT\_beg\ =\ 0;}
+\DoxyCodeLine{00033\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ resnum\_beg\ =\ 0;}
+\DoxyCodeLine{00034\ }
+\DoxyCodeLine{00035\ \ \ \ \ \textcolor{keywordtype}{double}\ d\_maxTime\ =\ 0.0;}
+\DoxyCodeLine{00036\ \ \ \ \ \textcolor{keywordtype}{double}\ d\_startTime\ =\ 0.0;}
+\DoxyCodeLine{00037\ \ \ \ \ \textcolor{keywordtype}{double}\ d\_dT\_beg\ =\ 0.0;}
+\DoxyCodeLine{00038\ \ \ \ \ \textcolor{keywordtype}{bool}\ secondary\_side;}
+\DoxyCodeLine{00039\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{short}\ nrates\ =\ 1;\textcolor{comment}{//\ \ \ \ количество\ различных\ скоростей\ дискретизации\ в\ файле\ данных}}
+\DoxyCodeLine{00040\ \ \ \ \ \mbox{\hyperlink{class_text__read}{Text\_read}}(std::string\&\ strPath,\ std::string\&\ nameFile,\ \textcolor{keywordtype}{bool}\ in\_secondary\_side,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{short}\ in\_sign\_quantity);}
+\DoxyCodeLine{00041\ \ \ \ \ QVector<SignalComtr>\ ArrSignal;}
+\DoxyCodeLine{00042\ \};}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{float}\ get\_value(std::string\ str,\ \textcolor{keywordtype}{int}\ ind\_inf\_beg);}
+\DoxyCodeLine{00045\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{float}\ get\_value(std::string\ str,\ \textcolor{keywordtype}{int}\ ind\_inf\_beg,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{short}\&\ shift);}
+\DoxyCodeLine{00046\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ name\_setup(QVector<SignalComtr>\&\ ASignal,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\&\ i,\ std::string\&\ stream,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{short}\&\ sig\_num);}
+\DoxyCodeLine{00047\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ data\_setup(QVector<SignalComtr>\&\ ASignal,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\&\ i,\ std::string\&\ stream,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{short}\ s\_quantity,}
+\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\&\ str\_n,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{short}\&\ col\_n,\ \textcolor{keywordtype}{bool}\ in\_secondary\_side,\ \textcolor{keywordtype}{float}\ in\_Kvt,\ \textcolor{keywordtype}{float}\ in\_Kct);}
+\DoxyCodeLine{00049\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ TEXT\_READ\_H}}
+
+\end{DoxyCode}
