@@ -1,0 +1,35 @@
+\doxysection{Signal\+Comtr.\+hpp}
+\hypertarget{_signal_comtr_8hpp_source}{}\label{_signal_comtr_8hpp_source}\index{Microcap\_Comtrade/SignalComtr.hpp@{Microcap\_Comtrade/SignalComtr.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ SIGNALCOMTR\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ SIGNALCOMTR\_H}}
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ <QObject>}}
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <QVector>}}
+\DoxyCodeLine{00005\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_signal_comtr}{SignalComtr}}}
+\DoxyCodeLine{00006\ \{}
+\DoxyCodeLine{00007\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00009\ \ \ \ \ std::string\ \mbox{\hyperlink{class_signal_comtr_a2220f64be8557f36d4e771741ff6f7d3}{sig\_ch\_id}};\textcolor{comment}{//Имена\ сигналов\ перечислены\ в\ первой\ строке}}
+\DoxyCodeLine{00011\ \ \ \ \ \textcolor{keywordtype}{char}\ \mbox{\hyperlink{class_signal_comtr_a5da1e33800ffe05940fc3c6de9421b1e}{sig\_ph}};\textcolor{comment}{//\ Последняя\ буква\ в\ названии\ сигнала}}
+\DoxyCodeLine{00013\ \ \ \ \ std::string\ \mbox{\hyperlink{class_signal_comtr_aa0f7bd329f2e51c1927adbc27eddc2a4}{sig\_ccbm}};\textcolor{comment}{//\ Здесь\ везде\ устанавливается\ '\ '}}
+\DoxyCodeLine{00015\ \ \ \ \ std::string\ \mbox{\hyperlink{class_signal_comtr_a04ec698a17847aea766a78b8099a4e61}{sig\_uu}};\textcolor{comment}{//\ Вторая\ строка}}
+\DoxyCodeLine{00017\ \ \ \ \ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{class_signal_comtr_ad4fc0941f20328130633d3beb8afb089}{sig\_a}};\textcolor{comment}{//\ Здесь\ везде\ устанавливается\ Ктт\ или\ Ктн}}
+\DoxyCodeLine{00019\ \ \ \ \ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{class_signal_comtr_a41029937d9116653d36081064bf21d3d}{sig\_b}};\textcolor{comment}{//\ Здесь\ везде\ устанавливается\ 0}}
+\DoxyCodeLine{00021\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_signal_comtr_ad3816aea73dda9f2beb30f629e0bd58f}{sig\_skew}};\textcolor{comment}{//Здесь\ везде\ устанавливается\ 0}}
+\DoxyCodeLine{00023\ \ \ \ \ QVector<float>\ \mbox{\hyperlink{class_signal_comtr_af726377f5d759d9830457ad58f6cb629}{sig\_data}};\textcolor{comment}{//\ Закреплен\ за\ столбцом\ сигнала}}
+\DoxyCodeLine{00025\ \ \ \ \ QVector<float>\ \mbox{\hyperlink{class_signal_comtr_a4c328077dbf499d254760a4f7a2a6746}{sig\_time}};\textcolor{comment}{//Первый\ столбец\ Т}}
+\DoxyCodeLine{00027\ \ \ \ \ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{class_signal_comtr_a8f9b7e6316b258902a49ab58c15c1501}{sig\_min}};\textcolor{comment}{//Здесь\ min(SIGDATA)}}
+\DoxyCodeLine{00029\ \ \ \ \ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{class_signal_comtr_ab2424ebbf322238496a09319c58c2646}{sig\_max}};\textcolor{comment}{//Здесь\ max\ (SIGDATA)}}
+\DoxyCodeLine{00031\ \ \ \ \ \textcolor{keywordtype}{char}\ \mbox{\hyperlink{class_signal_comtr_a96fd0c9cf7c273a6056c141215c683ba}{sig\_type}};\textcolor{comment}{//Если\ это\ ток\ и\ напряжение,\ то\ аналог\ -\/\ А,\ если\ дискрет\ -\/\ D}}
+\DoxyCodeLine{00033\ \ \ \ \ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{class_signal_comtr_acde3c3d48029edc47140b763658d3587}{sig\_m}};\textcolor{comment}{//Здесь\ везде\ устанавливается\ 0}}
+\DoxyCodeLine{00035\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{short}\ \mbox{\hyperlink{class_signal_comtr_a02b654ceaf73535f62b4873ea470c9cc}{sig\_num}};}
+\DoxyCodeLine{00037\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_signal_comtr_aa2b39b4cbe21173aa7a144e6b9909dd6}{sig\_primary}};}
+\DoxyCodeLine{00039\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_signal_comtr_aa68690cfa424488b6d206a96ecd72dca}{sig\_secondary}};}
+\DoxyCodeLine{00041\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{short}\ \mbox{\hyperlink{class_signal_comtr_a8b5109aa426867076ee4a7a65b21cbd4}{sig\_PS}};}
+\DoxyCodeLine{00042\ \ \ \ \ \mbox{\hyperlink{class_signal_comtr}{SignalComtr}}();}
+\DoxyCodeLine{00043\ \ \ \ \ \mbox{\hyperlink{class_signal_comtr}{\string~SignalComtr}}();}
+\DoxyCodeLine{00044\ \};}
+\DoxyCodeLine{00045\ }
+\DoxyCodeLine{00046\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ SIGNALCOMTR\_H}}
+
+\end{DoxyCode}

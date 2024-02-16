@@ -1,0 +1,47 @@
+\doxysection{Comtrade.\+hpp}
+\hypertarget{_comtrade_8hpp_source}{}\label{_comtrade_8hpp_source}\index{Microcap\_Comtrade/Comtrade.hpp@{Microcap\_Comtrade/Comtrade.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ COMTRADE\_HPP}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ COMTRADE\_HPP}}
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ <string>}}
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <QObject>}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ "{}SignalComtr.hpp"{}}}
+\DoxyCodeLine{00006\ \textcolor{comment}{//1.Формат\ записываемого\ файла\ в\ ПК\ Simulink\ для\ записи\ в\ формат\ COMTRADE:}}
+\DoxyCodeLine{00007\ \textcolor{comment}{//1.1.Запись\ данных\ в\ модели\ ПК\ Simulink\ должна\ делаться\ с\ использованием}}
+\DoxyCodeLine{00008\ \textcolor{comment}{//\ \ \ \ блоков\ "{}BusCreator"{}\ и\ "{}To\ Workspace"{}}}
+\DoxyCodeLine{00009\ \textcolor{comment}{//1.2.Первым\ записывается\ время\ с\ заданной\ дискретизацией\ выборки}}
+\DoxyCodeLine{00010\ \textcolor{comment}{//\ \ "{}Sample\ Time"{}}}
+\DoxyCodeLine{00011\ \textcolor{comment}{//1.3.Запись\ остальных\ сигналов\ делается\ в\ произвольном\ порядке}}
+\DoxyCodeLine{00012\ \textcolor{comment}{//1.4.Дискретные\ переменные\ и\ сигналы\ должны\ быть\ переведены\ в\ формат}}
+\DoxyCodeLine{00013\ \textcolor{comment}{//\ \ \ \ "{}double"{}}}
+\DoxyCodeLine{00014\ \textcolor{comment}{//1.5.Все\ сигналы,\ собираемые\ блоком\ "{}Bus\ Creator"{}\ должны\ иметь\ название,}}
+\DoxyCodeLine{00015\ \textcolor{comment}{//\ \ \ \ формат\ которого\ описан\ ниже}}
+\DoxyCodeLine{00016\ }
+\DoxyCodeLine{00017\ \textcolor{comment}{//2.Формат\ наименованя\ измеряемых\ величин\ для\ их\ записи\ в\ формат\ COMTRADE:}}
+\DoxyCodeLine{00018\ \textcolor{comment}{//2.1.Названия\ дискретных\ сигналов\ начинаются\ с\ нижнего\ подчеркивания\ "{}\_"{}}}
+\DoxyCodeLine{00019\ }
+\DoxyCodeLine{00020\ \textcolor{comment}{//2.2.Названия\ напряжений\ начинаются\ с\ U,\ далее\ следует\ наименование\ фазы\ с}}
+\DoxyCodeLine{00021\ \textcolor{comment}{//\ \ маленькой\ буквы,\ далее\ -\/\ любые\ символы:\ "{}Ua"{}\ -\/\ напряжение\ фазы\ А.}}
+\DoxyCodeLine{00022\ }
+\DoxyCodeLine{00023\ \textcolor{comment}{//2.3.Названия\ токов\ начинаются\ с\ I,\ далее\ следует\ наименование\ фазы\ с}}
+\DoxyCodeLine{00024\ \textcolor{comment}{//\ \ маленькой\ буквы,\ далее\ -\/\ любые\ символы:\ "{}Ia"{}\ -\/\ ток\ фазы\ А.}}
+\DoxyCodeLine{00025\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_comtrade}{Comtrade}}}
+\DoxyCodeLine{00026\ \{}
+\DoxyCodeLine{00027\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00028\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{short}\ f\_network;\ \ \ \textcolor{comment}{//базовая\ частота\ сети}}
+\DoxyCodeLine{00029\ \ \ \ \ QVector<float>\ time;}
+\DoxyCodeLine{00030\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ f\_sampl;}
+\DoxyCodeLine{00031\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ n\_sampl;}
+\DoxyCodeLine{00032\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{short}\ sign\_quantity;}
+\DoxyCodeLine{00033\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{short}\ nrates;}
+\DoxyCodeLine{00034\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00035\ \ \ \ \ \mbox{\hyperlink{class_comtrade}{Comtrade}}(std::string\&\ in\_strPath,\ std::string\&\ in\_FileName,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{short}\ in\_Fnetwork,\ QVector<SignalComtr>\&\ in\_signal,}
+\DoxyCodeLine{00036\ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ in\_n\_sampl,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ in\_f\_sampl,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{short}\ in\_sign\_quantity,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{short}\ in\_nrates);}
+\DoxyCodeLine{00037\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_comtrade_ad5a32557cf25c0531bddf15f1dbab438}{CfgFilePrint}}(QVector<SignalComtr>\&\ in\_signal,\ \textcolor{keywordtype}{char}\ c\_Path\_comtrade[],\ \textcolor{keywordtype}{char}\ basename\_comtrade[]);}
+\DoxyCodeLine{00038\ \ \ \ \ \textcolor{keywordtype}{void}\ DatFilePrint(QVector<SignalComtr>\&\ in\_signal,\ \textcolor{keywordtype}{char}\ c\_Path\_comtrade[],\ \textcolor{keywordtype}{char}\ basename\_comtrade[]);}
+\DoxyCodeLine{00039\ \};}
+\DoxyCodeLine{00040\ }
+\DoxyCodeLine{00041\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ COMTRADE\_HPP}}
+
+\end{DoxyCode}
