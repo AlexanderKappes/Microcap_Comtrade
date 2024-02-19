@@ -140,3 +140,143 @@ void Comtrade::DatFilePrint(QVector<SignalComtr>& in_signal, char c_Path_comtrad
 	}
 	fclose(out); // close file
 }
+
+ComtradeDataReader::ComtradeDataReader(const std::string& comtradePath, const char delimiter)
+{
+    std::string lineData;
+
+    //! Проверяем наличие обязательных (critical) CFG- и DAT-файлов
+    std::string cfgFileName = comtradePath + ".CFG";
+    std::string datFileName = comtradePath + ".DAT";
+
+    std::ifstream cfgFile(cfgFileName);
+    std::ifstream datFile(datFileName);
+
+    if (!cfgFile.is_open() || !datFile.is_open()) {
+        std::cerr << "Error: CFG or DAT file not found in the specified directory." << std::endl;
+        return;
+    }
+
+    //! Чтение CFG-файла
+    for (size_t i = 0; std::getline(cfgFile, lineData); i++) {
+        std::istringstream iss(lineData);
+        //* Группа параметров a
+        if (i == 0u) {
+            std::string stationName, recDevId;
+            if (std::getline(iss, stationName, delimiter) &&
+                std::getline(iss, recDevId, delimiter)) {
+                this->stationName = stationName;
+                this->recDevId = recDevId;
+            } else {
+                std::cerr << "Error: Critical data is missing." << std::endl;
+                return;
+            }
+            if (iss >> revYear)
+                this->revYear = revYear;
+            else
+                this->revYear = 1991;
+        }
+        //* Группа параметров b
+        else if (i == 1u) {
+            std::string numChannels, numAnalogChannels, numDigitalChannels;
+            if (std::getline(iss, numChannels, delimiter) &&
+                std::getline(iss, numAnalogChannels, delimiter) &&
+                std::getline(iss, numDigitalChannels, delimiter)) {
+                this->numChannels = std::stoi(numChannels);
+                this->numAnalogChannels = std::stoi(numAnalogChannels);
+                this->numDigitalChannels = std::stoi(numDigitalChannels);
+            } else {
+                std::cerr << "Error: Critical data is missing." << std::endl;
+                return;
+            }
+        }
+        //* Группа параметров d
+        else if (i == 2u + this->numChannels) {
+            std::string freqNetwork;
+            if (std::getline(iss, freqNetwork, delimiter)) {
+                this->freqNetwork = std::atof(freqNetwork.c_str());
+            } else {
+                std::cerr << "Error: Critical data is missing." << std::endl;
+                return;
+            }
+        }
+        //* Группа параметров e
+        else if (i == 3u + this->numChannels) {
+            std::string nRates;
+            if (std::getline(iss, nRates, delimiter)) {
+                this->nRates =  std::stoi(nRates);
+            } else {
+                std::cerr << "Error: Critical data is missing." << std::endl;
+                return;
+            }
+        }
+        //TODO Возможно, неправильно отработает с числом частот дискретизации, отличным от 1 (не было примера)
+        else if (3u + this->numChannels < i && i <= 3u + this->numChannels + this->nRates) {
+            _sampRateInfo info;
+            std::string samp, endSamp;
+            info.n = i - (3 + this->numChannels);
+            if (std::getline(iss, samp, delimiter) &&
+                std::getline(iss, endSamp, delimiter)) {
+                info.samp = std::atof(samp.c_str());
+                info.endSamp = std::stoi(samp);
+                this->sampRateInfo.push_back(info);
+            } else {
+                std::cerr << "Error: Critical data is missing." << std::endl;
+                return;
+            }
+        }
+        // Прочие строки не обрабатываются
+        else continue;
+    }
+
+    cfgFile.close();
+
+    //! Чтение DAT-файла
+    uint8_t idx0 = 2u;
+    std::string str;
+    //* Аналоговые каналы
+    for (size_t i = 0; i < this->numAnalogChannels; i++) { // По каналам
+        std::vector<double> values;
+
+        while (std::getline(datFile, lineData)) { // По строкам
+            std::istringstream iss(lineData);
+            double value;
+
+            for (size_t j = 0; j < idx0 + i; j++) { // Доходим до нужного канала
+                if (!(std::getline(iss, str, delimiter))) {
+                    std::cerr << "Error reading analog data." << std::endl;
+                    return;
+                }
+            }
+
+            value = std::atof(str.c_str());
+            values.push_back(value);
+        }
+
+        this->analogData.push_back(values);
+    }
+
+    //* Дискретные каналы
+    for (size_t i = 0; i < this->numDigitalChannels; i++) { // По каналам
+        std::vector<bool> values;
+
+        while (std::getline(datFile, lineData)) { // По строкам
+            std::istringstream iss(lineData);
+            bool value;
+
+            for (size_t j = 0; j < idx0 + i; j++) { // Доходим до нужного канала
+                if (!(std::getline(iss, str, delimiter))) {
+                    std::cerr << "Error reading analog data." << std::endl;
+                    return;
+                }
+            }
+
+            value = (bool)std::stoi(str);
+            values.push_back(value);
+        }
+
+        this->digitalData.push_back(values);
+    }
+
+    datFile.close();
+}
