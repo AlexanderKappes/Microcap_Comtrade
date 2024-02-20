@@ -48,7 +48,7 @@ void MainWindow::on_pB_Apply_clicked()
 
     str_tmp_path = strPath_comtrade.toLocal8Bit().constData();
     str_tmp_name = file_comtrade_name.toLocal8Bit().constData();
-    Comtrade file_comtrade (str_tmp_path, str_tmp_name, 50, TR.ArrSignal, TR.n_sampl, TR.f_sampl, TR.sign_quantity, TR.nRates);
+    ComtradeDataWriter file_comtrade (str_tmp_path, str_tmp_name, 50, TR.ArrSignal, TR.n_sampl, TR.f_sampl, TR.sign_quantity, TR.nRates);
 }
 
 void MainWindow::on_lE_strPath_microcap_textChanged(const QString &arg1)
