@@ -218,7 +218,7 @@ ComtradeDataReader::ComtradeDataReader(const std::string& comtradePath, const ch
             if (std::getline(iss, samp, delimiter) &&
                 std::getline(iss, endSamp, delimiter)) {
                 info.samp = std::atof(samp.c_str());
-                info.endSamp = std::stoi(samp);
+                info.endSamp = std::stoi(endSamp);
                 this->sampRateInfo.push_back(info);
             } else {
                 std::cerr << "Error: Critical data is missing." << std::endl;
@@ -242,7 +242,7 @@ ComtradeDataReader::ComtradeDataReader(const std::string& comtradePath, const ch
             std::istringstream iss(lineData);
             double value;
 
-            for (size_t j = 0; j < idx0 + i; j++) { // Доходим до нужного канала
+            for (size_t j = 0; j <= idx0 + i; j++) { // Доходим до нужного канала
                 if (!(std::getline(iss, str, delimiter))) {
                     std::cerr << "Error reading analog data." << std::endl;
                     return;
@@ -264,7 +264,7 @@ ComtradeDataReader::ComtradeDataReader(const std::string& comtradePath, const ch
             std::istringstream iss(lineData);
             bool value;
 
-            for (size_t j = 0; j < idx0 + i; j++) { // Доходим до нужного канала
+            for (size_t j = 0; j <= idx0 + i; j++) { // Доходим до нужного канала
                 if (!(std::getline(iss, str, delimiter))) {
                     std::cerr << "Error reading analog data." << std::endl;
                     return;
