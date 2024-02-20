@@ -4,24 +4,25 @@
 using boost::convert;
 
 ComtradeDataWriter::ComtradeDataWriter(std::string& in_strPath, std::string& in_fileName, unsigned short in_freqNetwork, QVector<SignalComtr>& in_signal,
-				   unsigned long in_n_sampl, unsigned long in_f_sampl, unsigned short in_sign_quantity, unsigned short in_nrates)
-{
+                                       unsigned long in_n_sampl, unsigned long in_f_sampl, unsigned short in_sign_quantity, unsigned short in_nRates) {
     freqNetwork = in_freqNetwork;
-	char c_Path_comtrade[80] {};
-	char basename_comtrade[80] {};
+
+    char c_Path_comtrade[80] {};    // Массив для пути к файлам COMTRADE
+    char basename_comtrade[80] {};  // Массив для имени файлов COMTRADE
+
+    // Копирование имени файла из строки в массив char
 	for (std::string::size_type i = 0; i < in_fileName.length(); i ++) // строковый тип в тип char []
-		{
-			basename_comtrade[i] = in_fileName[i];
-		}
+        basename_comtrade[i] = in_fileName[i];
+
+    // Копирование пути к файлу из строки в массив char
 	for (std::string::size_type i = 0; i < in_strPath.length(); i ++) // строковый тип в тип char []
-		{
-			c_Path_comtrade[i] = in_strPath[i];
-		}
-    int i = 0;
+        c_Path_comtrade[i] = in_strPath[i];
+
+    size_t i = 0;
 	f_sampl = in_f_sampl;
 	n_sampl = in_n_sampl;
 	sign_quantity = in_sign_quantity;
-	nrates = in_nrates;
+	nRates = in_nRates;
 	time.resize(n_sampl);
 	for (auto it = in_signal[0].sig_time.begin(); it != in_signal[0].sig_time.end(); ++it)
     {
@@ -29,8 +30,8 @@ ComtradeDataWriter::ComtradeDataWriter(std::string& in_strPath, std::string& in_
         i++;
     }
 
-	cfgFilePrint(in_signal, c_Path_comtrade, basename_comtrade);
-	datFilePrint(in_signal, c_Path_comtrade, basename_comtrade);
+    cfgFilePrint(in_signal, c_Path_comtrade, basename_comtrade); // Вызов функции для создания конфигурационного файла COMTRADE
+    datFilePrint(in_signal, c_Path_comtrade, basename_comtrade); // Вызов функции для создания файла данных COMTRADE
 }
 
 // Функция формирования CFG-файла
@@ -105,7 +106,7 @@ void ComtradeDataWriter::cfgFilePrint(QVector<SignalComtr>& in_signal, char c_Pa
 
     str_out = std::to_string(freqNetwork) + "\n";
 	fputs(str_out.c_str(), out);
-    str_out = std::to_string(nrates) + "\n";
+    str_out = std::to_string(nRates) + "\n";
 	fputs(str_out.c_str(), out);
     str_out = std::to_string(f_sampl) + "," + std::to_string(n_sampl) + "\n";
 	fputs(str_out.c_str(), out);
@@ -114,7 +115,7 @@ void ComtradeDataWriter::cfgFilePrint(QVector<SignalComtr>& in_signal, char c_Pa
 	fclose(out); // close file
 }
 
-
+// Функция формирования DAT-файла
 void ComtradeDataWriter::datFilePrint(QVector<SignalComtr>& in_signal, char c_Path_comtrade[], char basename_comtrade[])
 {
 	char fileName[100]= {0};

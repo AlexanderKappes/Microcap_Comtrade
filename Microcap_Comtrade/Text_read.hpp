@@ -36,7 +36,7 @@ public:
 	double d_startTime = 0.0;
 	double d_dT_beg = 0.0;
 	bool secondary_side;
-	unsigned short nrates = 1;//	количество различных скоростей дискретизации в файле данных
+	unsigned short nRates = 1;//	количество различных скоростей дискретизации в файле данных
     Text_read(std::string& strPath, std::string& nameFile, bool in_secondary_side, unsigned short in_sign_quantity);
 	QVector<SignalComtr> ArrSignal;
 };

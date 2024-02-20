@@ -35,7 +35,7 @@ struct _sampRateInfo {
 };
 
 /**
- * @brief Класс для записи COMTRADE-файлов
+ * @brief Класс для записи COMTRADE-файлов.
  * 
  * 1.Формат записываемого файла в ПК Simulink для записи в формат `COMTRADE`:
  * 1.1.Запись данных в модели ПК Simulink должна делаться с использованием блоков "BusCreator" и "To Workspace";
@@ -54,25 +54,25 @@ class ComtradeDataWriter {
 private:
     unsigned short freqNetwork;     ///< Частота сети, Гц
     QVector<float> time;            
-    unsigned long f_sampl;          ///<
+    unsigned long f_sampl;          ///< Частота дискретизации, Гц
     unsigned long n_sampl;          ///<
     unsigned short sign_quantity;   ///<
-    unsigned short nrates;          ///< 
+    unsigned short nRates;          ///< Количество частот дискретизации в файле данных
 public:
     /**
      * @brief Construct a new Comtrade Data Writer object
      * 
-     * @param in_strPath 
-     * @param in_FileName 
-     * @param in_Fnetwork 
-     * @param in_signal 
-     * @param in_n_sampl 
-     * @param in_f_sampl 
+     * @param in_strPath Путь к файлу.
+     * @param in_fileName Имя файла
+     * @param in_freqNetwork Частота сети, Гц
+     * @param in_signal Вектор сигналов COMTRADE
+     * @param in_n_sampl
+     * @param in_f_sampl Частота дискретизации, Гц
      * @param in_sign_quantity 
-     * @param in_nrates 
+     * @param in_nRates Количество частот дискретизации в файле данных
      */
-    ComtradeDataWriter(std::string& in_strPath, std::string& in_FileName, unsigned short in_Fnetwork, QVector<SignalComtr>& in_signal,
-                       unsigned long in_n_sampl, unsigned long in_f_sampl, unsigned short in_sign_quantity, unsigned short in_nrates);
+    ComtradeDataWriter(std::string& in_strPath, std::string& in_fileName, unsigned short in_freqNetwork, QVector<SignalComtr>& in_signal,
+                       unsigned long in_n_sampl, unsigned long in_f_sampl, unsigned short in_sign_quantity, unsigned short in_nRates);
 
     /**
      * @brief 
@@ -94,7 +94,7 @@ public:
 };
 
 /**
- * @brief Класс для чтения COMTRADE-файлов
+ * @brief Класс для чтения COMTRADE-файлов.
  * @author Di0nisP
  *
  */
