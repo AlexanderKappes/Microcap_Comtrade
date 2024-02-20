@@ -237,7 +237,7 @@ ComtradeDataReader::ComtradeDataReader(const std::string& comtradePath, const ch
     std::string str;
     //* Аналоговые каналы
     for (size_t i = 0; i < this->numAnalogChannels; i++) { // По каналам
-        std::vector<double> values;
+        QVector<double> values;
 
         while (std::getline(datFile, lineData)) { // По строкам
             std::istringstream iss(lineData);
@@ -259,7 +259,7 @@ ComtradeDataReader::ComtradeDataReader(const std::string& comtradePath, const ch
 
     //* Дискретные каналы
     for (size_t i = 0; i < this->numDigitalChannels; i++) { // По каналам
-        std::vector<bool> values;
+        QVector<bool> values;
 
         while (std::getline(datFile, lineData)) { // По строкам
             std::istringstream iss(lineData);

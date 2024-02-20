@@ -7,7 +7,6 @@
 #include <iostream> // Поточный ввод/вывод
 #include <sstream>  // std::istringstream
 #include <string>   // Операции со строками (std::string)
-#include <vector>
 #include <QObject>
 #include "SignalComtr.hpp"
 //* Includes end ----------------------------------------------------------------------------------------
@@ -118,11 +117,11 @@ private:
     //* Группа параметров e
     uint8_t nRates;                 ///< Количество частот дискретизации в файле данных
     //TODO Каналы частот дискретизации требуют доработки (не работает с более чем 1 каналом)
-    std::vector<_sampRateInfo> sampRateInfo;        ///< Контейннер длля хранения информации по каналам с разными частотами дискретизации
+    QVector<_sampRateInfo> sampRateInfo;        ///< Контейннер длля хранения информации по каналам с разными частотами дискретизации
 
     //! Данные (DAT)
-    std::vector<std::vector<double>> analogData;    ///< Контейнеры для хранения данных по аналоговым каналам
-    std::vector<std::vector<bool>> digitalData;     ///< Контейнеры для хранения данных по дискретным каналам
+    QVector<QVector<double>> analogData;    ///< Контейнеры для хранения данных по аналоговым каналам
+    QVector<QVector<bool>> digitalData;     ///< Контейнеры для хранения данных по дискретным каналам
 
 public:
     /**
