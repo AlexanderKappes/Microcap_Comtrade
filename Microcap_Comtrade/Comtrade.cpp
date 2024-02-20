@@ -3,7 +3,7 @@
 #include "boost/convert/stream.hpp"
 using boost::convert;
 
-Comtrade::Comtrade(std::string& in_strPath, std::string& in_FileName, unsigned short in_Fnetwork, QVector<SignalComtr>& in_signal,
+ComtradeDataWriter::ComtradeDataWriter(std::string& in_strPath, std::string& in_FileName, unsigned short in_Fnetwork, QVector<SignalComtr>& in_signal,
 				   unsigned long in_n_sampl, unsigned long in_f_sampl, unsigned short in_sign_quantity, unsigned short in_nrates)
 {
     f_network = in_Fnetwork;
@@ -34,7 +34,7 @@ Comtrade::Comtrade(std::string& in_strPath, std::string& in_FileName, unsigned s
 }
 
 ///Функция формирования .cfg-файла
-void Comtrade::CfgFilePrint(QVector<SignalComtr>& in_signal, char c_Path_comtrade[], char basename_comtrade[])
+void ComtradeDataWriter::CfgFilePrint(QVector<SignalComtr>& in_signal, char c_Path_comtrade[], char basename_comtrade[])
 {
 	//Создаем пустой текстовый файл с расширением .cfg
 	int n_an_sig=0;//число аналоговых сигналов
@@ -115,7 +115,7 @@ void Comtrade::CfgFilePrint(QVector<SignalComtr>& in_signal, char c_Path_comtrad
 }
 
 
-void Comtrade::DatFilePrint(QVector<SignalComtr>& in_signal, char c_Path_comtrade[], char basename_comtrade[])
+void ComtradeDataWriter::DatFilePrint(QVector<SignalComtr>& in_signal, char c_Path_comtrade[], char basename_comtrade[])
 {
 	char filename[100]= {0};
 	FILE *out;

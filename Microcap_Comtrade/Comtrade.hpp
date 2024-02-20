@@ -1,5 +1,5 @@
-#ifndef COMTRADE_HPP
-#define COMTRADE_HPP
+#ifndef ComtradeDataWriter_HPP
+#define ComtradeDataWriter_HPP
 
 //* Includes begin --------------------------------------------------------------------------------------
 #include <stdint.h> // Целочисленные типы фиксированной ширины
@@ -12,7 +12,19 @@
 #include "SignalComtr.hpp"
 //* Includes end ----------------------------------------------------------------------------------------
 
-//1.Формат записываемого файла в ПК Simulink для записи в формат COMTRADE:
+//* User macros begin -----------------------------------------------------------------------------------
+/**
+ * @brief Формирование get-свойства для приватного поля
+ * @author Di0nisP
+ *
+ */
+#define GENERATE_GETTER(name) \
+    decltype(name) get_##name() const { \
+        return name; \
+    }
+//* User macros end -------------------------------------------------------------------------------------
+
+//1.Формат записываемого файла в ПК Simulink для записи в формат ComtradeDataWriter:
 //1.1.Запись данных в модели ПК Simulink должна делаться с использованием
 //    блоков "BusCreator" и "To Workspace"
 //1.2.Первым записывается время с заданной дискретизацией выборки
@@ -32,25 +44,9 @@
 //2.3.Названия токов начинаются с I, далее следует наименование фазы с
 //  маленькой буквы, далее - любые символы: "Ia" - ток фазы А.
 
-class Comtrade
-{
-private:
-	unsigned short f_network;   //базовая частота сети
-    QVector<float> time;
-	unsigned long f_sampl;
-	unsigned long n_sampl;
-	unsigned short sign_quantity;
-	unsigned short nrates;
-public:
-	Comtrade(std::string& in_strPath, std::string& in_FileName, unsigned short in_Fnetwork, QVector<SignalComtr>& in_signal,
-			 unsigned long in_n_sampl, unsigned long in_f_sampl, unsigned short in_sign_quantity, unsigned short in_nrates);
-	void CfgFilePrint(QVector<SignalComtr>& in_signal, char c_Path_comtrade[], char basename_comtrade[]);
-	void DatFilePrint(QVector<SignalComtr>& in_signal, char c_Path_comtrade[], char basename_comtrade[]);
-};
-
-
 /**
  * @brief Информация о частоте дискретизации
+ * @author Di0nisP
  *
  */
 struct _sampRateInfo {
@@ -60,11 +56,31 @@ struct _sampRateInfo {
 };
 
 /**
- * @brief Класс для хранения информации о результате чтения COMTRADE-файлов
+ * @brief Класс для записи COMTRADE-файлов
+ * 
+ */
+class ComtradeDataWriter {
+private:
+    unsigned short freqNetwork;   ///< Частота сети, Гц
+    QVector<float> time;
+    unsigned long f_sampl;
+    unsigned long n_sampl;
+    unsigned short sign_quantity;
+    unsigned short nrates;
+public:
+    ComtradeDataWriter(std::string& in_strPath, std::string& in_FileName, unsigned short in_Fnetwork, QVector<SignalComtr>& in_signal,
+                       unsigned long in_n_sampl, unsigned long in_f_sampl, unsigned short in_sign_quantity, unsigned short in_nrates);
+	void CfgFilePrint(QVector<SignalComtr>& in_signal, char c_Path_ComtradeDataWriter[], char basename_ComtradeDataWriter[]);
+	void DatFilePrint(QVector<SignalComtr>& in_signal, char c_Path_ComtradeDataWriter[], char basename_ComtradeDataWriter[]);
+};
+
+/**
+ * @brief Класс для чтения COMTRADE-файлов
+ * @author Di0nisP
  *
  */
 class ComtradeDataReader {
-public:
+private:
     //! Конфигурационные параметры (CFG)
     //* Группа параметров a
     std::string stationName;        ///< Имя станции
@@ -81,13 +97,14 @@ public:
 
     //* Группа параметров e
     uint8_t nRates;                 ///< Количество частот дискретизации в файле данных
-    //TODO Каналы частот дискретизации требуют доработки (скорее всего не работает с более чем 1 каналом)
+    //TODO Каналы частот дискретизации требуют доработки (не работает с более чем 1 каналом)
     std::vector<_sampRateInfo> sampRateInfo;        ///< Контейннер длля хранения информации по каналам с разными частотами дискретизации
 
     //! Данные (DAT)
     std::vector<std::vector<double>> analogData;    ///< Контейнеры для хранения данных по аналоговым каналам
     std::vector<std::vector<bool>> digitalData;     ///< Контейнеры для хранения данных по дискретным каналам
 
+public:
     /**
      * @brief Construct a new Comtrade Data Reader object
      *
@@ -95,6 +112,28 @@ public:
      * @param delimiter Разделитель данных (по умолчанию принят ',')
      */
     ComtradeDataReader(const std::string& comtradePath, const char delimiter = ',');
+
+    //! Конфигурационные параметры (CFG)
+    //* Группа параметров a
+    GENERATE_GETTER(stationName)
+    GENERATE_GETTER(recDevId)
+    GENERATE_GETTER(revYear)
+
+    //* Группа параметров b
+    GENERATE_GETTER(numChannels)
+    GENERATE_GETTER(numAnalogChannels)
+    GENERATE_GETTER(numDigitalChannels)
+
+    //* Группа параметров d
+    GENERATE_GETTER(freqNetwork)
+
+    //* Группа параметров e
+    GENERATE_GETTER(nRates)
+    GENERATE_GETTER(sampRateInfo)
+
+    //! Данные (DAT)
+    GENERATE_GETTER(analogData)
+    GENERATE_GETTER(digitalData)
 };
 
-#endif // COMTRADE_HPP
+#endif // ComtradeDataWriter_HPP
