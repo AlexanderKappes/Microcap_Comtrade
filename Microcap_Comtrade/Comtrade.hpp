@@ -64,7 +64,7 @@ struct _sampRateInfo {
  *
  */
 class ComtradeDataReader {
-private:
+public:
     //! Конфигурационные параметры (CFG)
     //* Группа параметров a
     std::string stationName;        ///< Имя станции
@@ -87,7 +87,7 @@ private:
     //! Данные (DAT)
     std::vector<std::vector<double>> analogData;    ///< Контейнеры для хранения данных по аналоговым каналам
     std::vector<std::vector<bool>> digitalData;     ///< Контейнеры для хранения данных по дискретным каналам
-public:
+
     /**
      * @brief Construct a new Comtrade Data Reader object
      *
