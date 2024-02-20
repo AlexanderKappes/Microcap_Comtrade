@@ -273,7 +273,7 @@ ComtradeDataReader::ComtradeDataReader(const std::string& comtradePath, const ch
 
             for (size_t j = 0; j <= idx0 + i; j++) { // Доходим до нужного канала
                 if (!(std::getline(iss, str, delimiter))) {
-                    std::cerr << "Error reading analog data." << std::endl;
+                    std::cerr << "Error reading digital data." << std::endl;
                     return;
                 }
             }
