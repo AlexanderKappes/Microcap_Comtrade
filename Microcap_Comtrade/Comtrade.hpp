@@ -24,26 +24,6 @@
     }
 //* User macros end -------------------------------------------------------------------------------------
 
-//1.Формат записываемого файла в ПК Simulink для записи в формат ComtradeDataWriter:
-//1.1.Запись данных в модели ПК Simulink должна делаться с использованием
-//    блоков "BusCreator" и "To Workspace"
-//1.2.Первым записывается время с заданной дискретизацией выборки
-//  "Sample Time"
-//1.3.Запись остальных сигналов делается в произвольном порядке
-//1.4.Дискретные переменные и сигналы должны быть переведены в формат
-//    "double"
-//1.5.Все сигналы, собираемые блоком "Bus Creator" должны иметь название,
-//    формат которого описан ниже
-
-//2.Формат наименованя измеряемых величин для их записи в формат COMTRADE:
-//2.1.Названия дискретных сигналов начинаются с нижнего подчеркивания "_"
-
-//2.2.Названия напряжений начинаются с U, далее следует наименование фазы с
-//  маленькой буквы, далее - любые символы: "Ua" - напряжение фазы А.
-
-//2.3.Названия токов начинаются с I, далее следует наименование фазы с
-//  маленькой буквы, далее - любые символы: "Ia" - ток фазы А.
-
 /**
  * @brief Информация о частоте дискретизации
  * @author Di0nisP
@@ -58,20 +38,60 @@ struct _sampRateInfo {
 /**
  * @brief Класс для записи COMTRADE-файлов
  * 
+ * 1.Формат записываемого файла в ПК Simulink для записи в формат `COMTRADE`:
+ * 1.1.Запись данных в модели ПК Simulink должна делаться с использованием блоков "BusCreator" и "To Workspace";
+ * 1.2.Первым записывается время с заданной дискретизацией выборки "Sample Time";
+ * 1.3.Запись остальных сигналов делается в произвольном порядке;
+ * 1.4.Дискретные переменные и сигналы должны быть переведены в формат `double`;
+ * 1.5.Все сигналы, собираемые блоком "Bus Creator" должны иметь название, формат которого описан в п. 2.
+ * 
+ * 2.Формат наименованя измеряемых величин для их записи в формат `COMTRADE`:
+ * 2.1.Названия дискретных сигналов начинаются с нижнего подчеркивания "_";
+ * 2.2.Названия напряжений начинаются с U, далее следует наименование фазы с маленькой буквы, далее - любые символы (например, "Ua" - напряжение фазы А);
+ * 2.3.Названия токов начинаются с I, далее следует наименование фазы с маленькой буквы, далее - любые символы (например, "Ia" - ток фазы А).
+ * 
  */
 class ComtradeDataWriter {
 private:
-    unsigned short freqNetwork;   ///< Частота сети, Гц
-    QVector<float> time;
-    unsigned long f_sampl;
-    unsigned long n_sampl;
-    unsigned short sign_quantity;
-    unsigned short nrates;
+    unsigned short freqNetwork;     ///< Частота сети, Гц
+    QVector<float> time;            
+    unsigned long f_sampl;          ///<
+    unsigned long n_sampl;          ///<
+    unsigned short sign_quantity;   ///<
+    unsigned short nrates;          ///< 
 public:
+    /**
+     * @brief Construct a new Comtrade Data Writer object
+     * 
+     * @param in_strPath 
+     * @param in_FileName 
+     * @param in_Fnetwork 
+     * @param in_signal 
+     * @param in_n_sampl 
+     * @param in_f_sampl 
+     * @param in_sign_quantity 
+     * @param in_nrates 
+     */
     ComtradeDataWriter(std::string& in_strPath, std::string& in_FileName, unsigned short in_Fnetwork, QVector<SignalComtr>& in_signal,
                        unsigned long in_n_sampl, unsigned long in_f_sampl, unsigned short in_sign_quantity, unsigned short in_nrates);
-	void CfgFilePrint(QVector<SignalComtr>& in_signal, char c_Path_ComtradeDataWriter[], char basename_ComtradeDataWriter[]);
-	void DatFilePrint(QVector<SignalComtr>& in_signal, char c_Path_ComtradeDataWriter[], char basename_ComtradeDataWriter[]);
+
+    /**
+     * @brief 
+     * 
+     * @param in_signal 
+     * @param c_Path_ComtradeDataWriter 
+     * @param basename_ComtradeDataWriter 
+     */
+	void cfgFilePrint(QVector<SignalComtr>& in_signal, char c_Path_ComtradeDataWriter[], char basename_ComtradeDataWriter[]);
+
+    /**
+     * @brief 
+     * 
+     * @param in_signal 
+     * @param c_Path_ComtradeDataWriter 
+     * @param basename_ComtradeDataWriter 
+     */
+	void datFilePrint(QVector<SignalComtr>& in_signal, char c_Path_ComtradeDataWriter[], char basename_ComtradeDataWriter[]);
 };
 
 /**

@@ -3,19 +3,19 @@
 #include "boost/convert/stream.hpp"
 using boost::convert;
 
-ComtradeDataWriter::ComtradeDataWriter(std::string& in_strPath, std::string& in_FileName, unsigned short in_Fnetwork, QVector<SignalComtr>& in_signal,
+ComtradeDataWriter::ComtradeDataWriter(std::string& in_strPath, std::string& in_fileName, unsigned short in_freqNetwork, QVector<SignalComtr>& in_signal,
 				   unsigned long in_n_sampl, unsigned long in_f_sampl, unsigned short in_sign_quantity, unsigned short in_nrates)
 {
-    f_network = in_Fnetwork;
-	char c_Path_comtrade [80] = {0};
-	char basename_comtrade [80] = {0};
-	for (std::string::size_type i = 0; i < in_FileName.length (); i ++) // строковый тип в тип char []
+    freqNetwork = in_freqNetwork;
+	char c_Path_comtrade[80] {};
+	char basename_comtrade[80] {};
+	for (std::string::size_type i = 0; i < in_fileName.length(); i ++) // строковый тип в тип char []
 		{
-			basename_comtrade[i]=in_FileName[i];
+			basename_comtrade[i] = in_fileName[i];
 		}
-	for (std::string::size_type i = 0; i < in_strPath.length (); i ++) // строковый тип в тип char []
+	for (std::string::size_type i = 0; i < in_strPath.length(); i ++) // строковый тип в тип char []
 		{
-			c_Path_comtrade[i]=in_strPath[i];
+			c_Path_comtrade[i] = in_strPath[i];
 		}
     int i = 0;
 	f_sampl = in_f_sampl;
@@ -29,12 +29,12 @@ ComtradeDataWriter::ComtradeDataWriter(std::string& in_strPath, std::string& in_
         i++;
     }
 
-	CfgFilePrint(in_signal, c_Path_comtrade, basename_comtrade);
-	DatFilePrint(in_signal, c_Path_comtrade, basename_comtrade);
+	cfgFilePrint(in_signal, c_Path_comtrade, basename_comtrade);
+	datFilePrint(in_signal, c_Path_comtrade, basename_comtrade);
 }
 
-///Функция формирования .cfg-файла
-void ComtradeDataWriter::CfgFilePrint(QVector<SignalComtr>& in_signal, char c_Path_comtrade[], char basename_comtrade[])
+// Функция формирования CFG-файла
+void ComtradeDataWriter::cfgFilePrint(QVector<SignalComtr>& in_signal, char c_Path_comtrade[], char basename_comtrade[])
 {
 	//Создаем пустой текстовый файл с расширением .cfg
 	int n_an_sig=0;//число аналоговых сигналов
@@ -52,13 +52,13 @@ void ComtradeDataWriter::CfgFilePrint(QVector<SignalComtr>& in_signal, char c_Pa
 		}
 	}
 
-	char filename[100]= {0};
+	char fileName[100]= {0};
 	FILE *out;
 	std::string str_out,
             str_sig_An, str_sig_ch_id, str_sig_ph, str_sig_ccbm, str_sig_uu, str_sig_a, str_sig_b, str_sig_skew, str_sig_min, str_sig_max, str_sig_primary, str_sig_secondary, str_sig_PS;
 
-	sprintf(filename, "%s%s.cfg", c_Path_comtrade, basename_comtrade);//s -string, d - double
-	out = fopen(filename, "w");
+	sprintf(fileName, "%s%s.cfg", c_Path_comtrade, basename_comtrade);//s -string, d - double
+	out = fopen(fileName, "w");
 
     str_out ="Microcap 12 64 bit,GenMicrocap,2013\n";
 	fputs(str_out.c_str(), out);
@@ -103,7 +103,7 @@ void ComtradeDataWriter::CfgFilePrint(QVector<SignalComtr>& in_signal, char c_Pa
 		fputs(str_out.c_str(), out);
 	}
 
-    str_out = std::to_string(f_network) + "\n";
+    str_out = std::to_string(freqNetwork) + "\n";
 	fputs(str_out.c_str(), out);
     str_out = std::to_string(nrates) + "\n";
 	fputs(str_out.c_str(), out);
@@ -115,15 +115,15 @@ void ComtradeDataWriter::CfgFilePrint(QVector<SignalComtr>& in_signal, char c_Pa
 }
 
 
-void ComtradeDataWriter::DatFilePrint(QVector<SignalComtr>& in_signal, char c_Path_comtrade[], char basename_comtrade[])
+void ComtradeDataWriter::datFilePrint(QVector<SignalComtr>& in_signal, char c_Path_comtrade[], char basename_comtrade[])
 {
-	char filename[100]= {0};
+	char fileName[100]= {0};
 	FILE *out;
 	std::string str_out,
 			str_time;
 
-	sprintf(filename, "%s%s.dat", c_Path_comtrade, basename_comtrade);//s -string, d - double
-	out = fopen(filename, "w");
+	sprintf(fileName, "%s%s.dat", c_Path_comtrade, basename_comtrade);//s -string, d - double
+	out = fopen(fileName, "w");
     boost::cnv::cstream cnv;
 	for (unsigned long i = 0; i < n_sampl; i++)
 	{
@@ -141,16 +141,17 @@ void ComtradeDataWriter::DatFilePrint(QVector<SignalComtr>& in_signal, char c_Pa
 	fclose(out); // close file
 }
 
+// Чтение COMTRADE-файлов
 ComtradeDataReader::ComtradeDataReader(const std::string& comtradePath, const char delimiter)
 {
     std::string lineData;
 
     //! Проверяем наличие обязательных (critical) CFG- и DAT-файлов
-    std::string cfgFileName = comtradePath + ".CFG";
-    std::string datFileName = comtradePath + ".DAT";
+    std::string cfgfileName = comtradePath + ".CFG";
+    std::string datfileName = comtradePath + ".DAT";
 
-    std::ifstream cfgFile(cfgFileName);
-    std::ifstream datFile(datFileName);
+    std::ifstream cfgFile(cfgfileName);
+    std::ifstream datFile(datfileName);
 
     if (!cfgFile.is_open() || !datFile.is_open()) {
         std::cerr << "Error: CFG or DAT file not found in the specified directory." << std::endl;
